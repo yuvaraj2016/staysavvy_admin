@@ -33,9 +33,9 @@ Route::resource('albums', 'AlbumController');
 Route::resource('albums.photo', 'PhotoController');
 Route::resource('testimonials', 'TestimonialsController');
 
-Route::resource('bookings', 'ProductCategoryController')->except('index')->middleware('checktoken');
+Route::resource('bookings', 'BookingController')->except('index')->middleware('checktoken');
 
-Route::get('booking_list/{page?}','ProductCategoryController@index')->name('booking.index')->middleware('checktoken');
+Route::get('booking_list/{page?}','BookingController@index')->name('booking.index')->middleware('checktoken');
 
 Route::get('getprodSubcat/{id}','ProductCategoryController@getsubcategories')->name('getsubcategories')->middleware('checktoken');
 

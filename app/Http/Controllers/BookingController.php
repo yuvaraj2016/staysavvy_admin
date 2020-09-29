@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redis;
 use GuzzleHttp\Client;
-class ProductCategoryController extends Controller
+class BookingController extends Controller
 {
     
 
@@ -31,23 +31,23 @@ class ProductCategoryController extends Controller
 
         $token = session()->get('token');
         
-        try{
+        // try{
            
-            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . 'api/prodCat?page='.$page);
+        //     $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . 'api/prodCat?page='.$page);
 
-            $response = json_decode($call->getBody()->getContents(), true);
+        //     $response = json_decode($call->getBody()->getContents(), true);
             
-            // return $response;
+        //     // return $response;
 
-        }catch (\Exception $e){
-            //buy a beer
+        // }catch (\Exception $e){
+        //     //buy a beer
 
 
-        }
-        $prodcategories = $response['data'];
-         $pagination = $response['meta']['pagination'];
+        // }
+        // $prodcategories = $response['data'];
+        //  $pagination = $response['meta']['pagination'];
 
-          $lastpage = $pagination['total_pages'];
+        //   $lastpage = $pagination['total_pages'];
         //  $current_page = $pagination['current_page'];
 
         //  if($numOfpages > 1)
@@ -79,11 +79,13 @@ class ProductCategoryController extends Controller
         //         'has_next_page', 'has_previous_page', 'next_page',
         //     )
 
-            return view(
-                'booking_list', compact(
-                    'prodcategories', 'pagination','lastpage'
-                )
-        );
+            // return view(
+            //     'booking_list', compact(
+            //         'prodcategories', 'pagination','lastpage'
+            //     )
+
+             return view('booking_list');
+    
 
         // if (isset($url)) {
         //     $response = Http::withToken($token)->get($url);

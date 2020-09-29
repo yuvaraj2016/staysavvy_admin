@@ -138,7 +138,8 @@
                             <div class="section-header-button col-md-3 ">
                                 <div class="col">
                                 <ul id="pagination" class="float-right m-0 p-0">
-                                        <li><a href="{{ route('booking.index',$page=1) }}" class="btn btn-primary @if($pagination['current_page']==1) {{ "disabled" }} @endif">First</a></li>
+                                        {{-- <li><a href="{{ route('booking.index',$page=1) }}" class="btn btn-primary @if($pagination['current_page']==1) {{ "disabled" }} @endif">First</a></li> --}}
+                                        <li><a href="{{ route('booking.index',$page=1) }}" class="btn btn-primary">First</a></li>
                                         @php
                                         if(isset($pagination['links']['previous']))
                                         {
@@ -179,17 +180,7 @@
 
                                         @endphp
 
-                                        @php
-                                        if($pagination['total_pages']>1)
-                                        {
-                                        @endphp
-                                        <li> <a href="{{ route('booking.index',$pagination['total_pages']) }}" class="btn btn-primary float-right">Last</a> </li>
-
-                                        @php
-                                        }
-
-                                        @endphp
-
+                                     
                                     </ul>
 
                                     
@@ -217,78 +208,7 @@
                                 </thead>
                                 <tbody>
 
-{{-- @dd($prodcategories) --}}
-@foreach($prodcategories as $prodcategory )
-@php
-$id=$prodcategory['id'];
-@endphp
 
-<tr>
-<td><span class="text-center justify-content-center" style="padding-top:10px;">{{ $prodcategory['title'] }}</span>
-
-    </td>
-    <td><span class="text-center justify-content-center" style="padding-top:10px;">{{ $prodcategory['category_short_code'] }}</span>
-
-    </td>
-    <td>
-        {{ $prodcategory['category_desc'] }}
-    </td>
-    {{-- <td>{{ dd($prodcategory['Assets']) }}</td> --}}
-    <td align="center">
-
-        <img src="{{ isset($prodcategory['Assets']['data'][0]['links']) ? $prodcategory['Assets']['data'][0]['links']['full'].'?width=52&height=52' : asset('img/no-image.gif')  }}" /></td>
-    <td>{{ $prodcategory['status_desc'] }}</td>
-    {{-- <td>
-            <a href="#">
-                <img alt="image"
-                    src="{{ config('global.storage') }}/cover_pictures/{{ $album['cover_picture'] }}"
-    class="rounded-circle" width="35" data-toggle="title" title="">
-    </a>
-    </td> --}}
-
-    <td>{{ date("Y-m-d H:i:s",$prodcategory['created_at']) }}</td>
-    <td>
-        <div class="d-flex">
-        <ul class="list-group list-inline ml-1">
-  <li class="list-group-item border1"><a href="{{ url('bookings/'.$id) }}"
-                        class=" d-inline font1 view-confirmation" data-toggle="tooltip" data-placement="top" title="View"><i
-                            class="fa fa-eye"></i></a></li>
-  <li class="list-group-item border1"><a href="{{ url('bookings/'.$id.'/edit') }}"
-                        class=" d-inline text-center font1 edit-confirmation" data-toggle="tooltip" data-placement="top" title="Edit"><i
-                            class="fa fa-edit" ></i></a></li>
-  <!-- <li class="list-group-item border1"> <form
-                    action="{{ route('bookings.destroy',$id) }}"
-                    method="POST">
-                    @method('DELETE')
-                    @csrf
-                    <button type="submit" style="background-color:#fff!important;position: relative;top:-1px!important; padding-top:3px!important;padding-bottom:8px!important;"
-                        class=" job-delete d-inline font1" data-toggle="tooltip" data-placement="top" title="Delete" > <i
-                            class="fa fa-trash" style="position: relative;top:-5;"></i></button>
-                </form></li> -->
-
-
-                <li class="list-group-item border1">
-                                                    <form id="delete_from_{{$prodcategory['id']}}" method="POST" action="{{route('bookings.destroy', $prodcategory['id']) }}">
-                    {{ csrf_field() }}
-    {{ method_field('DELETE') }}
-
-    <div class="form-group">
-        <a href="javascript:void(0);" data-id="{{$prodcategory['id']}}" class="_delete_data"  data-toggle="tooltip" data-placement="top" title="Delete" style="background-color:#fff!important;position: relative;top:-1px!important; padding-top:3px!important;padding-bottom:8px!important;">
-        <i class="fa fa-trash" style="position: relative;top:-5;color:#01a9ac"></i>
-        </a>                    
-    </div>
-</form></li>
-             
-
-</ul>
-
-
-     
-        </div>
-    </td>
-</tr>
-@endforeach
-</tbody>
                             </table>
 
 
