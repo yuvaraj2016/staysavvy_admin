@@ -46,7 +46,7 @@ class UserController extends Controller
         ])->post(config('global.url').'/oauth/token', [
             "grant_type" => "password",
             "client_id" => 2,
-            "client_secret" => "Hridhamtech",
+            "client_secret" => "StaySavvy",
             "username" => $request->username,
             "password" => $request->password,
             "scope" => ''
