@@ -641,7 +641,7 @@ font-size:13px!important;
                              
                               <a class="dropdown-item {{ (request()->is('profile_list')) ? 'active' : '' }}" href="{{ route('profile.index') }}">My Profile</a>
                               <!-- <div class="dropdown-divider"></div> -->
-                              <!-- <a class="dropdown-item {{ (request()->is('vendor_cat_list')) ? 'active' : '' }}" href="{{ route('vendor_cat.index') }}">Edit Profile</a> -->
+                              {{-- <!-- <a class="dropdown-item {{ (request()->is('vendor_cat_list')) ? 'active' : '' }}" href="{{ route('vendor_cat.index') }}">Edit Profile</a> --> --}}
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item {{ (request()->is('logout')) ? 'active' : '' }}" href="{{ route('logout') }}">Logout</a>
                             
