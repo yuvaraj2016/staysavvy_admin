@@ -569,40 +569,7 @@ font-size:13px!important;
                           </li>
 
 
-                          {{-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fa fa-users" style="margin-left:11px!important;">
-                              
-                              </i>
-                              Vendors
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                             
-                              <a class="dropdown-item {{ (request()->is('vendor_list')) ? 'active' : '' }}" href="{{ route('vendor.index') }}"> Vendors</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item {{ (request()->is('vendorstores_list')) ? 'active' : '' }}" href="{{ route('vendorstores.index') }}">Vendor Stores</a>
-                             
-                          
-                            </div>
-                          </li> --}}
-
-                          {{-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fa fa-users" style="margin-left:11px!important;">
-                              
-                              </i>
-                              Users
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                             
-                              <a class="dropdown-item {{ (request()->is('user_list')) ? 'active' : '' }}" href="{{ route('user.index') }}">Users</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item {{ (request()->is('role_list')) ? 'active' : '' }}" href="{{ route('role.index') }}">Roles</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item {{ (request()->is('permission_list')) ? 'active' : '' }}" href="{{ route('permission.index') }}">Permissions</a>
-                          
-                            </div>
-                          </li> --}}
+                       
                           <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <i class="fa fa-cog">
@@ -612,13 +579,11 @@ font-size:13px!important;
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                              
-                              {{-- <a class="dropdown-item {{ (request()->is('supplier_cat_list')) ? 'active' : '' }}" href="{{ route('supplier_cat.index') }}">Supplier Category</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item {{ (request()->is('vendor_cat_list')) ? 'active' : '' }}" href="{{ route('vendor_cat.index') }}">Vendor Category</a> --}}
+                          
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item {{ (request()->is('status_list')) ? 'active' : '' }}" href="{{ route('status.index') }}">Status</a>
                               <div class="dropdown-divider"></div>
-                              {{-- <a class="dropdown-item {{ (request()->is('ordertype_list')) ? 'active' : '' }}" href="{{ route('ordertype.index') }}">Order Type</a> --}}
+                            
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item {{ (request()->is('payment_list')) ? 'active' : '' }}" href="{{ route('payment.index') }}">Payment Status</a>
 
@@ -640,8 +605,7 @@ font-size:13px!important;
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                              
                               <a class="dropdown-item {{ (request()->is('profile_list')) ? 'active' : '' }}" href="{{ route('profile.index') }}">My Profile</a>
-                              <!-- <div class="dropdown-divider"></div> -->
-                              {{-- <!-- <a class="dropdown-item {{ (request()->is('vendor_cat_list')) ? 'active' : '' }}" href="{{ route('vendor_cat.index') }}">Edit Profile</a> --> --}}
+                           
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item {{ (request()->is('logout')) ? 'active' : '' }}" href="{{ route('logout') }}">Logout</a>
                             
@@ -650,10 +614,7 @@ font-size:13px!important;
                           </li>
                  
                       </ul>
-                      {{-- <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                      </form> --}}
+
                     </div>
                   </nav>
 
