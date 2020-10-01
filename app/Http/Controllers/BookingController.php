@@ -16,7 +16,10 @@ class BookingController extends Controller
                
         $this->client = $client;
 
-
+        if(session()->has('token'))
+        {
+            return "hi";
+        }
     }
     /**
      * Display a listing of the resource.
