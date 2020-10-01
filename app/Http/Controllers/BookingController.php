@@ -32,13 +32,13 @@ class BookingController extends Controller
 
         $token = session()->get('token');
 
-        if(session()->has('token'))
+          if(session()->has('token'))
         {
             
         }
         else {
 
-            return redirect()->route('userlogin');
+            return redirect()->route('home');
         }
         
         // try{
