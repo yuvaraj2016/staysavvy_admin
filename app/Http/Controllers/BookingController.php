@@ -38,7 +38,7 @@ class BookingController extends Controller
         }
         else {
 
-            return redirect()->route('home');
+            return redirect()->route('userlogin');
         }
         
         // try{
