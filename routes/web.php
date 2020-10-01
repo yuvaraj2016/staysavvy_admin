@@ -24,7 +24,7 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
-Route::post('/login', 'UserController@login');
+Route::post('/login', 'UserController@login')->name('userlogin');
 
 Route::get('/logout', 'UserController@logout')->name('logout')->middleware('checktoken');
 

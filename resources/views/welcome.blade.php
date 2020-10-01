@@ -73,7 +73,7 @@
                             </div>
                             <div class="auth-box card">
                                 <a class="navbar-brand mt-4 text-center" href="#"><img src="{{  asset('files/assets/images/ss_logo.png') }}"/></a>
-                                <form action="{{ url('login') }}" method="post">
+                                <form action="{{ route('userlogin') }}" method="post">
                                     @csrf
                                    
                                 <div class="card-block">
