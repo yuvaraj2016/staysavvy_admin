@@ -18,8 +18,7 @@ class CheckToken
 
         if(session()->has('token'))
         {
-            // session()->flush();
-            // echo "sadf";exit;
+            
         }
         else {
 
