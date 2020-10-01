@@ -18,13 +18,13 @@ class CheckToken
 
         if(session()->has('token'))
         {
-            
+            return $next($request);
         }
         else {
 
             return redirect()->route('home');
         }
 
-         return $next($request);
+        //  return $next($request);
     }
 }
