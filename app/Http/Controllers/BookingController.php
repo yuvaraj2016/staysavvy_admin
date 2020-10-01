@@ -16,10 +16,7 @@ class BookingController extends Controller
                
         $this->client = $client;
 
-        if(session()->has('token'))
-        {
-            return "hi";
-        }
+       
     }
     /**
      * Display a listing of the resource.
@@ -32,7 +29,17 @@ class BookingController extends Controller
         //  echo $page;
         // $response='';
 
+
         $token = session()->get('token');
+
+        if(session()->has('token'))
+        {
+            
+        }
+        else {
+
+            return redirect()->route('home');
+        }
         
         // try{
            

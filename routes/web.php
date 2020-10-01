@@ -34,7 +34,7 @@ Route::get('/logout', 'UserController@logout')->name('logout')->middleware('chec
 
 Route::resource('bookings', 'BookingController')->except('index')->middleware('checktoken');
 
-Route::get('booking_list/{page?}','BookingController@index')->name('booking.index')->middleware('checktoken');
+Route::get('booking_list/{page?}','BookingController@index')->name('booking.index');
 
 
 Route::resource('status', 'StatusController')->except('index')->middleware('checktoken');
