@@ -32,9 +32,9 @@ Route::get('/logout', 'UserController@logout')->name('logout')->middleware('chec
 // Route::resource('albums.photo', 'PhotoController');
 // Route::resource('testimonials', 'TestimonialsController');
 
-Route::resource('bookings', 'BookingController')->except('index');
+Route::resource('bookings', 'BookingController')->except('index')->middleware('checktoken');;
 
-Route::get('booking_list/{page?}','BookingController@index')->name('booking.index');
+Route::get('booking_list/{page?}','BookingController@index')->name('booking.index')->middleware('checktoken');;
 
 
 Route::resource('status', 'StatusController')->except('index')->middleware('checktoken');
