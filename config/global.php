@@ -3,8 +3,8 @@
 return [
 
    
-    'url' => 'http://staysavvy-api.hridham.com/',
-    'storage'=>'http://staysavvy-api.hridham.com/storage'
+    'url' => 'http://api.getstaysavvy.co.uk/',
+    'storage'=>'http://api.getstaysavvy.co.uk/storage'
 
 
 ]
