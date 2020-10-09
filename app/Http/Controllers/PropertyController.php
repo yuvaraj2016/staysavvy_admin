@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class StatusController extends Controller
+class PropertyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class StatusController extends Controller
         $token = session()->get('token');
         try{
 
-            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confStatus?page='.$page);
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confPropertyType?page='.$page);
 
             $response = json_decode($call->getBody()->getContents(), true);
             //  return $response;
@@ -35,13 +35,13 @@ class StatusController extends Controller
 
 
         }
-        $statuses = $response['data'];
+        $producttype = $response['data'];
         $pagination = $response['meta']['pagination'];
 
         $lastpage = $pagination['total_pages'];
         
 
-          return view('status_list', compact('statuses', 'pagination','lastpage'));
+          return view('property_type_list', compact('producttype', 'pagination','lastpage'));
     }
 
     /**
@@ -51,7 +51,7 @@ class StatusController extends Controller
      */
     public function create()
     {
-           return view('create_status');
+           return view('create_property');
     }
 
     /**
@@ -65,23 +65,24 @@ class StatusController extends Controller
         $session = session()->get('token');
 
 
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->post(config('global.url').'api/confStatus',
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->post(config('global.url').'api/confPropertyType',
 
         [
 
-            "status_desc"=>$request->status_desc,
-            "title"=>$request->title,
+            "name"=>$request->name,
+            "description"=>$request->description,
+            "status_id"=>$request->status_id,
         ]);
 
 
         if($response->status()===201){
 
-            return redirect()->route('status.create')->with('success','Status Created Successfully!');
+            return redirect()->route('property.create')->with('success','Property Type Created Successfully!');
         }else{
 
             $request->flash();
 
-            return redirect()->route('status.create')->with('error',$response['errors']);
+            return redirect()->route('property.create')->with('error',$response['errors']);
         }
     }
 
@@ -96,7 +97,7 @@ class StatusController extends Controller
         $token = session()->get('token');
         try{
 
-            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confStatus/'.$id);
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confPropertyType/'.$id);
 
             $response = json_decode($call->getBody()->getContents(), true);
             //  return $response;
@@ -105,13 +106,13 @@ class StatusController extends Controller
 
 
         }
-         $status = $response['data'];
+         $property = $response['data'];
 
 
 
             return view(
-                'view_status', compact(
-                    'status'
+                'view_property_type', compact(
+                    'property'
                 )
         );
     }
@@ -128,7 +129,7 @@ class StatusController extends Controller
 
 
        
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confStatus/' . $id);
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confPropertyType/' . $id);
 
        
      
@@ -136,12 +137,12 @@ class StatusController extends Controller
 
         if($response->ok()){
 
-            $status =   $response->json()['data'];
+            $property =   $response->json()['data'];
 
             // return $status;
 
-            return view('edit_status', compact(
-               'status'
+            return view('edit_property', compact(
+               'property'
             ));
         }
     }
@@ -157,11 +158,12 @@ class StatusController extends Controller
     {
         $session = session()->get('token');
       
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->put(config('global.url').'/api/confStatus/'.$id, 
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->put(config('global.url').'/api/confPropertyType/'.$id, 
         [
             "_method"=> 'PUT',
-            "status_desc"=>$request->status_desc,
-            "title"=>$request->title         
+            "name"=>$request->name,
+            "description"=>$request->description,
+            "status_id"=>$request->status_id       
         ]
         
       );
@@ -171,7 +173,7 @@ class StatusController extends Controller
             return redirect()->route('home');
         }
         if($response->status()===200){
-            return redirect()->back()->with('success','Status Updated Successfully!');
+            return redirect()->back()->with('success','Property Updated Successfully!');
         }else{
             return redirect()->back()->with('error',$response->json()['message']);
         }
@@ -188,16 +190,16 @@ class StatusController extends Controller
     {
         $session = session()->get('token');
 
-        $response=Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->delete(config('global.url').'api/confStatus/'.$id);
+        $response=Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->delete(config('global.url').'api/confPropertyType/'.$id);
 
         if($response->status()==204){
 
-             return redirect()->route('status.index')->with('success','Status Deleted Sucessfully !..');
+             return redirect()->route('property.index')->with('success','Property Deleted Sucessfully !..');
         }
         else{
 
 
-             return redirect()->route('status.index')->with('error',$response->json()['message']);
+             return redirect()->route('property.index')->with('error',$response->json()['message']);
         }
 
     }

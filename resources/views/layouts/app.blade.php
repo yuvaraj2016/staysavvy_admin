@@ -588,6 +588,9 @@ font-size:13px!important;
                               <a class="dropdown-item {{ (request()->is('payment_list')) ? 'active' : '' }}" href="{{ route('payment.index') }}">Payment Status</a>
 
 
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item {{ (request()->is('property_type_list')) ? 'active' : '' }}" href="{{ route('property.index') }}">Property Type</a>
+
                              
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item {{ (request()->is('settings/create')) ? 'active' : '' }}" href="{{ route('settings.create') }}">Settings</a>

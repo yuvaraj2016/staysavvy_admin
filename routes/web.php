@@ -41,6 +41,12 @@ Route::resource('status', 'StatusController')->except('index')->middleware('chec
 
 Route::get('status_list/{page?}','StatusController@index')->name('status.index')->middleware('checktoken');
 
+Route::resource('property', 'PropertyController')->except('index')->middleware('checktoken');
+
+Route::get('property_list/{page?}','PropertyController@index')->name('property.index')->middleware('checktoken');
+
+
+
 Route::resource('payment', 'PaymentController')->except('index')->middleware('checktoken');
 
 Route::get('payment_list/{page?}','PaymentController@index')->name('payment.index')->middleware('checktoken');
