@@ -47,6 +47,12 @@ Route::get('property_list/{page?}','PropertyController@index')->name('property.i
 
 
 
+Route::resource('host', 'HosttypeController')->except('index')->middleware('checktoken');
+
+Route::get('host_list/{page?}','HosttypeController@index')->name('host.index')->middleware('checktoken');
+
+
+
 Route::resource('payment', 'PaymentController')->except('index')->middleware('checktoken');
 
 Route::get('payment_list/{page?}','PaymentController@index')->name('payment.index')->middleware('checktoken');
