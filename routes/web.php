@@ -53,6 +53,17 @@ Route::get('host_list/{page?}','HosttypeController@index')->name('host.index')->
 
 
 
+Route::resource('tax', 'TaxController')->except('index')->middleware('checktoken');
+
+Route::get('tax_list/{page?}','TaxController@index')->name('tax.index')->middleware('checktoken');
+
+
+
+Route::resource('amenity', 'AmenitiesController')->except('index')->middleware('checktoken');
+
+Route::get('amenity_list/{page?}','AmenitiesController@index')->name('amenity.index')->middleware('checktoken');
+
+
 Route::resource('payment', 'PaymentController')->except('index')->middleware('checktoken');
 
 Route::get('payment_list/{page?}','PaymentController@index')->name('payment.index')->middleware('checktoken');
