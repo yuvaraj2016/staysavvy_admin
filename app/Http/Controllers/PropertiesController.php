@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class AmenitiesController extends Controller
+class PropertiesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class AmenitiesController extends Controller
         $token = session()->get('token');
         try{
 
-            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confAmenity?page='.$page);
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/property?page='.$page);
 
             $response = json_decode($call->getBody()->getContents(), true);
             //  return $response;
@@ -35,14 +35,13 @@ class AmenitiesController extends Controller
 
 
         }
-        $amenity = $response['data'];
-        
+        $property = $response['data'];
         $pagination = $response['meta']['pagination'];
 
         $lastpage = $pagination['total_pages'];
         
 
-          return view('config_amenity_list', compact('amenity', 'pagination','lastpage'));
+          return view('property_list', compact('property', 'pagination','lastpage'));
     }
 
     /**
@@ -52,7 +51,7 @@ class AmenitiesController extends Controller
      */
     public function create()
     {
-           return view('create_tax');
+           return view('create_property');
     }
 
     /**
@@ -66,25 +65,30 @@ class AmenitiesController extends Controller
         $session = session()->get('token');
 
 
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->post(config('global.url').'api/confAmenity',
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->post(config('global.url').'api/property',
 
         [
 
             "name"=>$request->name,
+            "address"=>$request->address,
             "location"=>$request->location,
-            // "amount"=>$request->amount,
+            "host_type_id"=>$request->host_type_id,
+            "property_mgmt_system"=>$request->property_mgmt_system,
+            "central_res_system"=>$request->central_res_system,
+            "property_type_id"=>$request->property_type_id,
+            "description"=>$request->description,
             "status_id"=>$request->status_id,
         ]);
 
 
         if($response->status()===201){
 
-            return redirect()->route('amenity.create')->with('success','Amenity Created Successfully!');
+            return redirect()->route('property.create')->with('success','Property Type Created Successfully!');
         }else{
 
             $request->flash();
 
-            return redirect()->route('amenity.create')->with('error',$response['errors']);
+            return redirect()->route('property.create')->with('error',$response['errors']);
         }
     }
 
@@ -99,7 +103,7 @@ class AmenitiesController extends Controller
         $token = session()->get('token');
         try{
 
-            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confAmenity/'.$id);
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confPropertyType/'.$id);
 
             $response = json_decode($call->getBody()->getContents(), true);
             //  return $response;
@@ -108,13 +112,13 @@ class AmenitiesController extends Controller
 
 
         }
-         $amenity = $response['data'];
+         $property = $response['data'];
 
 
 
             return view(
-                'view_amenity', compact(
-                    'amenity'
+                'view_property_type', compact(
+                    'property'
                 )
         );
     }
@@ -131,7 +135,7 @@ class AmenitiesController extends Controller
 
 
        
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confAmenity/' . $id);
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confPropertyType/' . $id);
 
        
      
@@ -139,12 +143,12 @@ class AmenitiesController extends Controller
 
         if($response->ok()){
 
-            $amenity =   $response->json()['data'];
+            $property =   $response->json()['data'];
 
             // return $status;
 
-            return view('edit_amenity', compact(
-               'amenity'
+            return view('edit_property', compact(
+               'property'
             ));
         }
     }
@@ -160,13 +164,12 @@ class AmenitiesController extends Controller
     {
         $session = session()->get('token');
       
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->put(config('global.url').'/api/confAmenity/'.$id, 
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->put(config('global.url').'/api/confPropertyType/'.$id, 
         [
             "_method"=> 'PUT',
             "name"=>$request->name,
-            "location"=>$request->location,
-            // "amount"=>$request->amount,
-            "status_id"=>$request->status_id
+            "description"=>$request->description,
+            "status_id"=>$request->status_id       
         ]
         
       );
@@ -176,7 +179,7 @@ class AmenitiesController extends Controller
             return redirect()->route('home');
         }
         if($response->status()===200){
-            return redirect()->back()->with('success','Amenity Updated Successfully!');
+            return redirect()->back()->with('success','Property Updated Successfully!');
         }else{
             return redirect()->back()->with('error',$response->json()['message']);
         }
@@ -193,16 +196,16 @@ class AmenitiesController extends Controller
     {
         $session = session()->get('token');
 
-        $response=Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->delete(config('global.url').'api/confAmenity/'.$id);
+        $response=Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->delete(config('global.url').'api/confPropertyType/'.$id);
 
         if($response->status()==204){
 
-             return redirect()->route('amenity.index')->with('success','Tax Deleted Sucessfully !..');
+             return redirect()->route('property.index')->with('success','Property Deleted Sucessfully !..');
         }
         else{
 
 
-             return redirect()->route('amenity.index')->with('error',$response->json()['message']);
+             return redirect()->route('property.index')->with('error',$response->json()['message']);
         }
 
     }

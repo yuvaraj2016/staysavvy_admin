@@ -603,8 +603,8 @@ font-size:13px!important;
                               <a class="dropdown-item {{ (request()->is('config_amenity_list')) ? 'active' : '' }}" href="{{ route('amenity.index') }}">Amenity</a>
 
 
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item {{ (request()->is('settings/create')) ? 'active' : '' }}" href="{{ route('settings.create') }}">Settings</a>
+                              <!-- <div class="dropdown-divider"></div>
+                              <a class="dropdown-item {{ (request()->is('settings/create')) ? 'active' : '' }}" href="{{ route('settings.create') }}">Settings</a> -->
                             
                             </div>
                           </li>
