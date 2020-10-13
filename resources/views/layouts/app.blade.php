@@ -491,13 +491,16 @@ font-size:13px!important;
                             {{-- <span class="sr-only">(current)</span> --}}
                             {{-- </a>
                         </li> --}} 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
+                        <li class="nav-item {{ (request()->is('booking_list')) ? 'active' : '' }}">
+                            <a class="nav-link " href="{{ route('booking.index') }}">
                                 <i class="zmdi zmdi-key" style="font-size:25px!important;margin-left:5px!important;"></i><br>
                               Bookings
                             </a>
                            
                           </li>
+
+
+
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="fa fa-user" style="margin-left:5px!important;"></i>
@@ -618,7 +621,7 @@ font-size:13px!important;
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                              
-                              <a class="dropdown-item {{ (request()->is('profile_list')) ? 'active' : '' }}" href="{{ route('profile.index') }}">My Profile</a>
+                              <a class="dropdown-item {{ (request()->is('show_profiles')) ? 'active' : '' }}" href="{{ route('profile.index') }}">My Profile</a>
                            
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item {{ (request()->is('logout')) ? 'active' : '' }}" href="{{ route('logout') }}">Logout</a>

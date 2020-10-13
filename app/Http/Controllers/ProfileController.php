@@ -26,7 +26,7 @@ class ProfileController extends Controller
         $token = session()->get('token');
         try{
 
-            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/me');
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/users');
 
             $response = json_decode($call->getBody()->getContents(), true);
         
