@@ -29,7 +29,7 @@ class PropertyController extends Controller
             $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confPropertyType?page='.$page);
 
             $response = json_decode($call->getBody()->getContents(), true);
-            //  return $response;
+              return $response;
         }catch (\Exception $e){
             //buy a beer
 
@@ -51,7 +51,29 @@ class PropertyController extends Controller
      */
     public function create()
     {
-           return view('create_property');
+
+        $token = session()->get('token');
+        try{
+
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confStatus');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+            //  return $response;
+        }catch (\Exception $e){
+            //buy a beer
+
+
+        }
+         $statuses = $response['data'];
+
+
+         return view(
+            'create_property', compact(
+                'statuses'
+            )
+    );
+
+        //    return view('create_property');
     }
 
     /**
