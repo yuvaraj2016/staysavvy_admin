@@ -53,6 +53,13 @@ Route::get('host_list/{page?}','HosttypeController@index')->name('host.index')->
 
 
 
+Route::resource('properties', 'PropertiesController')->except('index')->middleware('checktoken');
+
+Route::get('properties_list/{page?}','PropertiesController@index')->name('properties.index')->middleware('checktoken');
+
+
+
+
 Route::resource('tax', 'TaxController')->except('index')->middleware('checktoken');
 
 Route::get('tax_list/{page?}','TaxController@index')->name('tax.index')->middleware('checktoken');
