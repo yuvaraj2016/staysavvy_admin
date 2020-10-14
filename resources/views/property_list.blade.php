@@ -143,15 +143,18 @@
                                        <th>central System</th>
                                        <th>Property Type Name</th>
                                        <th>Property Desc</th>
+                                       <th>Taxes</th>
+                                       <th>Amenity</th>
                                     <th>Status Desc</th>
                                         <th>Created At</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                               
                                 {{-- @dd($prodcategories) --}}
                                     @foreach($property as $propertys )
+                                  
                                     @php
                                     $id=$propertys['id'];
                                     @endphp
@@ -182,6 +185,86 @@
                                         <td>
                                             {{ $propertys['general_description'] }}
                                         </td>
+
+                                        <td>
+                                      
+                                        @foreach($propertys['Taxes']['data'] as $property)
+                                        
+                                           
+
+
+                                            @php if(count($propertys['Taxes']['data'])==1) 
+                                            {
+                                                $property_name =  $property['name'];
+                                                
+                                                // echo  $propertys;
+    
+                                           
+                                            }else if(count($propertys['Taxes']['data'])>1) 
+                                            {
+                                                
+                                                if(!$loop->last)
+                                                {
+                                                $property_name = $property['name'].",";
+                                                }
+                                                else {
+                                                 $property_name = $property['name'];
+                                                }
+                                                
+                                                
+                                          
+                                                                                             
+                                            }
+                                          
+                                           
+                                                                      
+                                            @endphp  
+                                            
+                                            {{ $property_name }}
+                                        
+                                        @endforeach
+                                       
+                                        </td>
+
+                                        <td>
+                                      
+                                      @foreach($propertys['Amenities']['data'] as $amen)
+                                      
+                                         
+
+
+                                          @php if(count($propertys['Amenities']['data'])==1) 
+                                          {
+                                              $amenity_name =  $amen['name'];
+                                              
+                                              // echo  $propertys;
+  
+                                         
+                                          }else if(count($propertys['Amenities']['data'])>1) 
+                                          {
+                                              
+                                              if(!$loop->last)
+                                              {
+                                              $amenity_name = $amen['name'].",";
+                                              }
+                                              else {
+                                               $amenity_name = $amen['name'];
+                                              }
+                                              
+                                              
+                                        
+                                                                                           
+                                          }
+                                        
+                                         
+                                                                    
+                                          @endphp  
+                                          
+                                          {{ $amenity_name }}
+                                      
+                                      @endforeach
+                                     
+                                      </td>
                                    
 
                                         <td>
