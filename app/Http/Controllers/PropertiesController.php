@@ -141,6 +141,8 @@ class PropertiesController extends Controller
         $session = session()->get('token');
         $fileext = '';
         $filename = '';
+
+        // return $request->amenities;
         if ($request->file('file') !== null) {
 
             $files =$request->file('file');
@@ -193,12 +195,12 @@ class PropertiesController extends Controller
                 'contents' => $request->status_id
             ],
             [
-                'name' => 'taxes',
-                'contents' => $request->taxes
+                'name' => 'taxes[]',
+                'contents' =>$request->taxes
             ],
             [
-                'name' => 'amenities',
-                'contents' => $request->amenities
+                'name' => 'amenities[]',
+                'contents' =>$request->amenities
             ],
 
             ]);
@@ -221,8 +223,8 @@ class PropertiesController extends Controller
             "property_type_id"=>$request->property_type_id,
             "general_description"=>$request->general_description,
             "status_id"=>$request->status_id,
-            $taxes=$request->taxes,
-            $amenities=$request->amenities,
+            "taxes"=>$request->taxes,
+            "amenities"=>$request->amenities
         ]);
         }
 
