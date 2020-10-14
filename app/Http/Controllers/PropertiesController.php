@@ -151,7 +151,7 @@ class PropertiesController extends Controller
                 $fileext = $ufile->getClientOriginalName();
                 $response = $response->attach('file['.$k.']', $filename,$fileext);
             }
-            $response = $response->withHeaders(['Accept'=>'application/vnd.api.v1+json'])->post(config('global.url') . '/api/item',
+            $response = $response->withHeaders(['Accept'=>'application/vnd.api.v1+json'])->post(config('global.url') . '/api/property',
             [
             [
                 'name' => 'name',
@@ -227,6 +227,7 @@ class PropertiesController extends Controller
         }
 
         if($response->status()===201){
+
 
             return redirect()->route('properties.create')->with('success','Properties Type Created Successfully!');
         }else{

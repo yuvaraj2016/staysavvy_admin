@@ -210,7 +210,7 @@
                                                         </div>
                                                         <div class="col-sm-4">
                                                         <label class="col-form-label text-md-right ">Amenity</label>
-                                                        <select  class="js-example-basic-single col-sm-12" name="id" id="" placeholder="status" required class="form-control selectric" required>
+                                                        <select  class="js-example-basic-single col-sm-12" name="id" id="" placeholder="status" required class="form-control selectric" >
                                         <option value="">Select</option>
                                         @foreach($amenity as $amenitys)
                                             <option value="{{ $amenitys['id'] }}" {{ (old("id") == $amenitys['id'] ? "selected":"") }}>{{ $amenitys['name'] }}</option>
