@@ -51,7 +51,83 @@ class PropertiesController extends Controller
      */
     public function create()
     {
-           return view('create_property');
+
+        $token = session()->get('token');
+
+        try{
+
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confTax');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+           
+        }catch (\Exception $e){
+            
+
+
+        }
+         $tax = $response['data'];
+
+         try{
+
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confAmenity');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+           
+        }catch (\Exception $e){
+            
+
+
+        }
+         $amenity = $response['data'];
+
+         try{
+
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confStatus');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+            //  return $response;
+        }catch (\Exception $e){
+            //buy a beer
+
+
+        }
+         $statuses = $response['data'];
+
+         try{
+
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confHostType');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+            //  return $response;
+        }catch (\Exception $e){
+            //buy a beer
+
+
+        }
+         $host = $response['data'];
+
+         try{
+
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confPropertyType');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+            //  return $response;
+        }catch (\Exception $e){
+            //buy a beer
+
+
+        }
+         $property_type = $response['data'];
+
+         
+
+         return view(
+            'create_properties', compact(
+                'tax','amenity','statuses','host','property_type'
+            )
+    );
+
+        //    return view('create_property');
     }
 
     /**
@@ -63,8 +139,75 @@ class PropertiesController extends Controller
     public function store(Request $request)
     {
         $session = session()->get('token');
+        $fileext = '';
+        $filename = '';
+        if ($request->file('file') !== null) {
+
+            $files =$request->file('file');
+            $response = Http::withToken($session);
+            foreach($files as $k => $ufile)
+            {
+                $filename = fopen($ufile, 'r');
+                $fileext = $ufile->getClientOriginalName();
+                $response = $response->attach('file['.$k.']', $filename,$fileext);
+            }
+            $response = $response->withHeaders(['Accept'=>'application/vnd.api.v1+json'])->post(config('global.url') . '/api/item',
+            [
+            [
+                'name' => 'name',
+                'contents' => $request->name
+            ],
+            [
+                'name' => 'address',
+                'contents' => $request->address
+            ],
+            [
+                'name' => 'location',
+                'contents' => $request->location
+            ],
+            [
+                'name' => 'host_type_id',
+                'contents' => $request->host_type_id
+            ],
+            [
+                'name' => 'property_mgmt_system',
+                'contents' => $request->property_mgmt_system
+            ],
+
+            [
+                'name' => 'central_res_system',
+                'contents' => $request->central_res_system
+            ],
+
+            [
+                'name' => 'property_type_id',
+                'contents' => $request->property_type_id
+            ],
+
+            [
+                'name' => 'general_description',
+                'contents' => $request->general_description
+            ],
+            [
+                'name' => 'status_id',
+                'contents' => $request->status_id
+            ],
+            [
+                'name' => 'taxes',
+                'contents' => $request->taxes
+            ],
+            [
+                'name' => 'amenities',
+                'contents' => $request->amenities
+            ],
+
+            ]);
 
 
+        }
+
+
+        else{
         $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->post(config('global.url').'api/property',
 
         [
@@ -76,19 +219,21 @@ class PropertiesController extends Controller
             "property_mgmt_system"=>$request->property_mgmt_system,
             "central_res_system"=>$request->central_res_system,
             "property_type_id"=>$request->property_type_id,
-            "description"=>$request->description,
+            "general_description"=>$request->general_description,
             "status_id"=>$request->status_id,
+            $taxes=$request->taxes,
+            $amenities=$request->amenities,
         ]);
-
+        }
 
         if($response->status()===201){
 
-            return redirect()->route('property.create')->with('success','Property Type Created Successfully!');
+            return redirect()->route('properties.create')->with('success','Properties Type Created Successfully!');
         }else{
 
             $request->flash();
 
-            return redirect()->route('property.create')->with('error',$response['errors']);
+            return redirect()->route('properties.create')->with('error',$response['errors']);
         }
     }
 
