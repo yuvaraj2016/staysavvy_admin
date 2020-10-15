@@ -148,7 +148,18 @@ class HosttypeController extends Controller
     {
         $session = session()->get('token');
 
+        try{
 
+            $call = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confStatus');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+            //  return $response;
+        }catch (\Exception $e){
+            //buy a beer
+
+
+        }
+         $statuses = $response['data'];
        
         $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confHostType/' . $id);
 
@@ -163,7 +174,7 @@ class HosttypeController extends Controller
             // return $status;
 
             return view('edit_host', compact(
-               'host'
+               'host','statuses'
             ));
         }
     }
