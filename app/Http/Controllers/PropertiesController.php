@@ -142,11 +142,17 @@ class PropertiesController extends Controller
         $fileext = '';
         $filename = '';
 
-        // return $request->amenities;
+        $taxes = implode("|",$request->taxes);
+
+        $amenities = implode("|",$request->amenities);
+
+
         if ($request->file('file') !== null) {
 
             $files =$request->file('file');
             $response = Http::withToken($session);
+
+            // return $request->amenities;
             foreach($files as $k => $ufile)
             {
                 $filename = fopen($ufile, 'r');
@@ -196,11 +202,11 @@ class PropertiesController extends Controller
             ],
             [
                 'name' => 'taxes[]',
-                'contents' =>$request->taxes
+                'contents' =>$taxes
             ],
             [
                 'name' => 'amenities[]',
-                'contents' =>$request->amenities
+                'contents' =>$amenities
             ],
 
             ]);
