@@ -139,6 +139,7 @@
                                        <th>Address</th>
                                        <th>Location</th>
                                        <th>Host Name</th>
+                                       <th>Property Images</th>
                                        <th>Property System</th>
                                        <th>central System</th>
                                        <th>Property Type Name</th>
@@ -173,6 +174,7 @@
                                         <td>
                                             {{ $propertys['host_type_name'] }}
                                         </td>
+                                        <td><img src="{{ isset($propertys['Assets']['data'][0]['links']) ? $propertys['Assets']['data'][0]['links']['full'].'?width=52&height=52' : asset('img/no-image.gif')  }}"/></td>
                                         <td>
                                             {{ $propertys['property_mgmt_system'] }}
                                         </td>
