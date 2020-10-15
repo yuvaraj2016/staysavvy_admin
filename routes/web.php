@@ -71,6 +71,11 @@ Route::resource('roomtype', 'BookingroomController')->except('index')->middlewar
 Route::get('booking_room_list/{page?}','BookingroomController@index')->name('roomtype.index')->middleware('checktoken');
 
 
+Route::resource('booksts', 'BookingstatusController')->except('index')->middleware('checktoken');
+
+Route::get('booking_status_list/{page?}','BookingstatusController@index')->name('booksts.index')->middleware('checktoken');
+
+
 
 Route::resource('amenity', 'AmenitiesController')->except('index')->middleware('checktoken');
 

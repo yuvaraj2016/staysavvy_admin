@@ -607,6 +607,10 @@ font-size:13px!important;
 
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item {{ (request()->is('booking_room_list')) ? 'active' : '' }}" href="{{ route('roomtype.index') }}">Booking Room</a>
+
+
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item {{ (request()->is('booking_status_list')) ? 'active' : '' }}" href="{{ route('booksts.index') }}">Booking Status</a>
                               <!-- <div class="dropdown-divider"></div>
                               <a class="dropdown-item {{ (request()->is('settings/create')) ? 'active' : '' }}" href="{{ route('settings.create') }}">Settings</a> -->
                             
