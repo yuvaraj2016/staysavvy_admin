@@ -66,6 +66,12 @@ Route::get('tax_list/{page?}','TaxController@index')->name('tax.index')->middlew
 
 
 
+Route::resource('roomtype', 'BookingroomController')->except('index')->middleware('checktoken');
+
+Route::get('booking_room_list/{page?}','BookingroomController@index')->name('roomtype.index')->middleware('checktoken');
+
+
+
 Route::resource('amenity', 'AmenitiesController')->except('index')->middleware('checktoken');
 
 Route::get('amenity_list/{page?}','AmenitiesController@index')->name('amenity.index')->middleware('checktoken');
