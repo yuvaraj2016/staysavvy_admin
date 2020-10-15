@@ -141,16 +141,32 @@ class PropertiesController extends Controller
         $session = session()->get('token');
         $fileext = '';
         $filename = '';
+        $taxes='';
+        $amenities='';
 
-        $taxes = implode("|",$request->taxes);
+        foreach($request->taxes as $tax)
+        {
 
-        $amenities = implode("|",$request->amenities);
+            $taxes .= $tax.",";
+        }
 
+        foreach($request->amenities as $amenity)
+        {
+
+            $amenities .= $amenity.",";
+        }
+
+        $taxes = rtrim($taxes,",");
+
+        $amenities = rtrim($amenities,",");
+
+        // return $amenities;
 
         if ($request->file('file') !== null) {
 
             $files =$request->file('file');
             $response = Http::withToken($session);
+       
 
             // return $request->amenities;
             foreach($files as $k => $ufile)
@@ -229,9 +245,10 @@ class PropertiesController extends Controller
             "property_type_id"=>$request->property_type_id,
             "general_description"=>$request->general_description,
             "status_id"=>$request->status_id,
-            "taxes"=>$request->taxes,
-            "amenities"=>$request->amenities
+            "taxes[]"=>$taxes,
+            "amenities[]"=>$amenities
         ]);
+
         }
 
         if($response->status()===201){
@@ -245,6 +262,8 @@ class PropertiesController extends Controller
             return redirect()->route('properties.create')->with('error',$response['errors']);
         }
     }
+
+
 
     /**
      * Display the specified resource.
