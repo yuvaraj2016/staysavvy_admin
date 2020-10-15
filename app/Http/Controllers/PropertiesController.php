@@ -41,7 +41,7 @@ class PropertiesController extends Controller
         $lastpage = $pagination['total_pages'];
         
 
-          return view('property_list', compact('property', 'pagination','lastpage'));
+          return view('properties_list', compact('property', 'pagination','lastpage'));
     }
 
     /**
@@ -276,7 +276,7 @@ class PropertiesController extends Controller
         $token = session()->get('token');
         try{
 
-            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confPropertyType/'.$id);
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/property/'.$id);
 
             $response = json_decode($call->getBody()->getContents(), true);
             //  return $response;
@@ -285,13 +285,13 @@ class PropertiesController extends Controller
 
 
         }
-         $property = $response['data'];
+         $properties = $response['data'];
 
-
+// return $properties;
 
             return view(
-                'view_property_type', compact(
-                    'property'
+                'view_properties_list', compact(
+                    'properties'
                 )
         );
     }

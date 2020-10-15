@@ -532,7 +532,7 @@ font-size:13px!important;
                             
                             </div>
                           </li> --}}
-                          <li class="nav-item {{ (request()->is('property_list')) ? 'active' : '' }}">
+                          <li class="nav-item {{ (request()->is('properties_list')) ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('properties.index') }}">
                               <i class="fa fa-flag">
                                
