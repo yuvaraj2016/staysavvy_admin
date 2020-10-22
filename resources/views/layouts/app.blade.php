@@ -464,13 +464,13 @@ font-size:13px!important;
                 {{-- Below Menu Code Reference -- https://bootsnipp.com/snippets/nNX3a --}}
 
 
-                <nav class="pcoded-navbar navbar-icon-top navbar-expand-lg navbar-light bg-blue fixed-top" style="border:0px solid red!important;padding-top:0px!important;padding-bottom:0px!important;" >
-                    <div class="row">
-                        <div class="col-md-2">
+                <nav class="pcoded-navbar navbar-icon-top navbar-expand-lg navbar-light bg-blue fixed-top" style="border:0px solid red!important;padding-top:0px!important;padding-bottom:0px!important;height:auto;" >
+                    <div class="row" style="padding-bottom:10px!important;">
+                        <div class="col-md-3">
                             <a class="navbar-brand ml-4" href="#"><img src="{{  asset('files/assets/images/ss_logo.png') }}"/></a>
                         </div>
         
-                        <div class="col-md-9" style="margin-left:25px!important;">
+                        <div class="col-md-9" style="margin-left:0px!important;">
                             <div class="mt-3" style="background-color:#1BF0B7; border-radius:20px; height:70%!important; font-weight:bold;">
                                 <a class="pull-right mr-5 mt-3 text-bold" href="#"><b>Admin Account</b></a>
                             </div>
@@ -483,7 +483,7 @@ font-size:13px!important;
                     </button>
                   
                     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="background-color:#1B476B; color:#fff;width:100%;">
-                      <ul class="navbar-nav ml-auto mt-1" style="margin-left:20%!important;">
+                      <ul class="navbar-nav ml-auto mt-1" style="margin-left:26%!important;">
                         {{-- <li class="nav-item {{ (request()->is('booking_list')) ? 'active' : '' }}">
                           <a class="nav-link" href="#">
                             <i class="fa fa-key" style="margin-left:5px!important;"></i>
