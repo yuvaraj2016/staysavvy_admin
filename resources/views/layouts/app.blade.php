@@ -634,7 +634,7 @@ font-size:13px!important;
                               <i class="fa fa-user" style="margin-left:14px!important;">
                               
                               </i>
-                              {{  ucfirst(session('username')) }}
+                              {{  ucfirst(session('name')) }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                              
