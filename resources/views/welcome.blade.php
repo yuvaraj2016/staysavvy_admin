@@ -23,7 +23,9 @@
     <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="#">
     <!-- Favicon icon -->
-    <link rel="icon" href="{{ asset('files/assets/images/favicon.ico') }}" type="image/x-icon">
+    {{-- <link rel="icon" href="{{ asset('files/assets/images/favicon.ico') }}" type="image/x-icon"> --}}
+
+    <link rel="icon" href="{{ asset('files/assets/images/favicon.png') }}" type="image/png" sizes="96x96">
     <!-- Google font--><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
 
