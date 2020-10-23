@@ -467,7 +467,7 @@ font-size:13px!important;
                 <nav class="pcoded-navbar navbar-icon-top navbar-expand-lg navbar-light bg-blue fixed-top" style="border:0px solid red!important;padding-top:0px!important;padding-bottom:0px!important;height:auto;" >
 
                         <div class="row" style="padding-bottom:10px!important;margin-left:0px!important;">
-                            <div style="margin-left:20px!important; width:15%!important;float:left;">
+                            <div style="margin-left:2%!important; width:15%!important;float:left;">
                                 <a class="navbar-brand" href="#"><img src="{{  asset('files/assets/images/ss_logo.png') }}"/></a>
                             </div>
             
