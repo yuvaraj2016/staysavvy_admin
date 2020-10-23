@@ -470,7 +470,7 @@ font-size:13px!important;
                             <a class="navbar-brand ml-4" href="#"><img src="{{  asset('files/assets/images/ss_logo.png') }}"/></a>
                         </div>
         
-                        <div class="col-md-9" style="margin-left:0px!important;">
+                        <div class="col-md-9" style="margin-left:-35px!important;">
                             <div class="mt-3" style="background-color:#1BF0B7; border-radius:20px; height:70%!important; font-weight:bold;">
                                 <a class="pull-right mr-5 mt-3 text-bold" href="#"><b>Admin Account</b></a>
                             </div>
@@ -483,7 +483,7 @@ font-size:13px!important;
                     </button>
                   
                     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="background-color:#1B476B; color:#fff;width:100%;">
-                      <ul class="navbar-nav ml-auto mt-1" style="margin-left:26%!important;">
+                      <ul class="navbar-nav ml-auto mt-1" style="margin-left:23%!important;">
                         {{-- <li class="nav-item {{ (request()->is('booking_list')) ? 'active' : '' }}">
                           <a class="nav-link" href="#">
                             <i class="fa fa-key" style="margin-left:5px!important;"></i>
