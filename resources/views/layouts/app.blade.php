@@ -465,18 +465,20 @@ font-size:13px!important;
 
 
                 <nav class="pcoded-navbar navbar-icon-top navbar-expand-lg navbar-light bg-blue fixed-top" style="border:0px solid red!important;padding-top:0px!important;padding-bottom:0px!important;height:auto;" >
-                    <div class="row" style="padding-bottom:10px!important;">
-                        <div class="col-md-3">
-                            <a class="navbar-brand ml-4" href="#"><img src="{{  asset('files/assets/images/ss_logo.png') }}"/></a>
-                        </div>
-        
-                        <div class="col-md-9" style="margin-left:-35px!important;">
-                            <div class="mt-3" style="background-color:#1BF0B7; border-radius:20px; height:70%!important; font-weight:bold;">
-                                <a class="pull-right mr-5 mt-3 text-bold" href="#"><b>Admin Account</b></a>
+
+                        <div class="row" style="padding-bottom:10px!important;margin-left:0px!important;">
+                            <div style="margin-left:20px!important; width:15%!important;float:left;">
+                                <a class="navbar-brand" href="#"><img src="{{  asset('files/assets/images/ss_logo.png') }}"/></a>
                             </div>
+            
+                            <div style="margin-left:24px!important;border:0px solid !important; width:77%!important;float:left;">
+                                <div class="mt-3" style="background-color:#1BF0B7; border-radius:20px; height:70%!important; font-weight:bold;">
+                                    <a class="pull-right mr-5 mt-3 text-bold" href="#"><b>Admin Account</b></a>
+                                </div>
+                            </div>
+            
                         </div>
-        
-                    </div>
+            
                     {{-- <a class="navbar-brand ml-4" href="#"><img src="{{  asset('files/assets/images/ss_logo.png') }}"/></a> --}}
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
