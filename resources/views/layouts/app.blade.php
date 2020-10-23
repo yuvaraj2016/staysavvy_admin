@@ -387,7 +387,7 @@ font-size:13px!important;
     <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="#">
     <!-- Favicon icon -->
-    <link rel="icon" href="{{ asset('files/assets/images/fav.png') }}" type="image/png" sizes="96x96">
+    <link rel="icon" href="{{ asset('files/assets/images/favicon.png') }}" type="image/png" sizes="96x96">
 
     <!-- Google font-->
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
