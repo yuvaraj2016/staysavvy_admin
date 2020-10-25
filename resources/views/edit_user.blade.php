@@ -165,55 +165,7 @@
 
                                                     
                               
-                                                <div class="modal fade" id="default-Modal" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog modal-lg" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Add Role</h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                            <form action="{{ route('roles.store') }}" method="post" id="addrole"
-            enctype="multipart/form-data">
-            @csrf
-                                                            <div class="form-group row">
-                                        <div class="col-sm-4 offset-1">
-                                        <label class="col-form-label text-md-right ">Role name</label>
-                                        <input type="text" name="name" value="{{ old('name') }}" class="form-control" required>
-                                        </div>
-
-                                        <div class="col-sm-4 offset-1">
-                                        <label class="col-form-label text-md-right ">Permissions</label>
-                                        <select  class="col-sm-12"  name="permissions[]" id="" placeholder="Role" required class="form-control selectric" multiple required>
-                                            <option value="">Select</option>
-                                            @foreach($permissions as $permission)
-                                                <option value="{{ $permission['id'] }}" {{ (collect(old('permissions'))->contains($permission['id'])) ? 'selected':'' }}>{{ $permission['name'] }}</option>
-                                            @endforeach
-                                        </select>
-                                        </div>
-
-
-                                                            </div>
-
-                       
-
-                                            
-                            
-                                   
-                                   
-                                                           
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary waves-effect waves-light ">Submit</button>
-                                                            </div>
-                                                            </form> 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
+                                    
 
 
                       
@@ -476,6 +428,59 @@
                                                                         </div>
                                                                     </div>
                                                                 </div> --}}
+
+
+
+
+                                                                <div class="modal fade" id="default-Modal" tabindex="-1" role="dialog">
+                                                                    <div class="modal-dialog modal-lg" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Add Role</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                            <form action="{{ route('roles.store') }}" method="post" id="addrole"
+                            enctype="multipart/form-data">
+                            @csrf
+                                                                            <div class="form-group row">
+                                                        <div class="col-sm-4 offset-1">
+                                                        <label class="col-form-label text-md-right ">Role name</label>
+                                                        <input type="text" name="name" value="{{ old('name') }}" class="form-control" required>
+                                                        </div>
+                
+                                                        <div class="col-sm-4 offset-1">
+                                                        <label class="col-form-label text-md-right ">Permissions</label>
+                                                        <select  class="col-sm-12"  name="permissions[]" id="" placeholder="Role" required class="form-control selectric" multiple required>
+                                                            <option value="">Select</option>
+                                                            @foreach($permissions as $permission)
+                                                                <option value="{{ $permission['id'] }}" {{ (collect(old('permissions'))->contains($permission['id'])) ? 'selected':'' }}>{{ $permission['name'] }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        </div>
+                
+                
+                                                                            </div>
+                
+                                       
+                
+                                                            
+                                            
+                                                   
+                                                   
+                                                                           
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                                                                                <button type="submit" class="btn btn-primary waves-effect waves-light ">Submit</button>
+                                                                            </div>
+                                                                            </form> 
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                
 </section>
     </div>
 </div>
