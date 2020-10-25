@@ -9,7 +9,7 @@
             <div class="col-lg-8">
                 <div class="page-header-title">
                     <div class="d-inline">
-                        <h4>Create User</h4>
+                        <h4>Edit User</h4>
                         {{-- <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span> --}}
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                     <ul class="breadcrumb-title">
                         <li class="breadcrumb-User">
                            
-                                <i class="">Create User</i>
+                                <i class="">Edit User</i>
                           
                         </li>
                       
@@ -56,9 +56,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('users.store') }}" method="post" id="addUser"
+                        <form action="{{route('users.update',['user'=>$user['id']]) }}" method="post" id="editUser"
                             enctype="multipart/form-data">
+                            @method('PUT')
                             @csrf
+
                             @if(session('success') !== null)
                             <div class="succWrap">
                             {{ session('success') }}
@@ -82,8 +84,7 @@
 
                                 @endforeach
                             @endif
-
-
+                            
                             <!-- @if(session('success') !== null)
                                 <div class='alert alert-success'>
                                     {{ session('success') }}
@@ -101,36 +102,50 @@
                                 @endforeach
                             @endif -->
                             <div class="form-group row">
-                                                        <div class="col-sm-4">
+                                                        <div class="col-sm-3 ml-5">
                                                         <label class="col-form-label text-md-right ">User name</label>
-                                                        <input type="text" name="name" value="{{ old('name') }}" class="form-control" required>
+                                                        <input type="text" name="name" value="{{ old('name',$user['name']) }}" class="form-control" required>
                                                         </div>
 
 
-                                                        <div class="col-sm-4">
+                                                        <div class="col-sm-3">
                                                         <label class="col-form-label text-md-right ">Email Address</label>
-                                                        <input type="email" name="email" value="{{ old('email') }}" class="summernote-simple form-control" required>
+                                                        <input type="email" name="email" value="{{ old('email',$user['email']) }}" class="summernote-simple form-control" required>
                                           
                                                         </div>
 
-                                                        <div class="col-sm-4">
+                                                        {{-- <div class="col-sm-4">
                                                             <label class="col-form-label text-md-right ">Password</label>
-                                                            <input type="password" name="password" id="password" minlength=8 value="{{ old('password') }}" class="summernote-simple form-control" required>
+                                                            <input type="password" name="password" id="password" minlength=8 value="{{ old('password',$user['password']) }}" class="summernote-simple form-control" required>
                                               
                                                        </div>
 
                                                        <div class="col-sm-4">
                                                         <label class="col-form-label text-md-right ">Confirm Password</label>
-                                                        <input type="password" name="password_confirmation" id="confirm_password" minlength=8 value="{{ old('password_confirmation') }}" class="summernote-simple form-control" required>
+                                                        <input type="password" name="password_confirmation" id="confirm_password" minlength=8 value="{{ old('password_confirmation',$user['password_confirmation']) }}" class="summernote-simple form-control" required>
                                           
-                                                        </div>
+                                                        </div> --}}
+                                                       
+                                                     
 
+                                                        @php
+
+                                                        $userrolesarr = [];
+
+                                                        foreach($user['roles']['data'] as $userrolesdata)
+                                                        {
+
+                                                            $userrolesarr[] = $userrolesdata['id'];
+                                                        }
+                                                        @endphp
+                                                        
                                                         <div class="col-sm-4">
                                                         <label class="col-form-label text-md-right ">Roles</label>
-                                                        <select  class="js-example-basic-single col-sm-12"  name="roles[]" id="" placeholder="Role" required class="form-control selectric" multiple required>
+                                                        <select  class="js-example-basic-single col-sm-12"  name="roles[]" id="" placeholder="Role" required multiple class="form-control selectric">
                                                             <option value="">Select</option>
                                                             @foreach($roles as $role)
-                                                                <option value="{{ $role['id'] }}" {{ (collect(old('roles'))->contains($role['id'])) ? 'selected':'' }}>{{ $role['name'] }}</option>
+                                                            
+                                                                <option value="{{ $role['id'] }}" {{ (collect($userrolesarr)->contains($role['id'])) ? 'selected':((collect(old('roles'))->contains($role['id'])) ? 'selected':'') }}>{{ $role['name'] }}</option>
                                                             @endforeach
                                                         </select>
                
@@ -139,7 +154,7 @@
 
 
              <!-- Modal large-->
-             <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#default-Modal1" style="margin-top: 30px;height:40px">+</button>
+             <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#default-Modal" style="margin-top: 30px;height:40px">+</button>
                                                 
 
 
@@ -150,7 +165,58 @@
 
                                                     
                               
-                                                      
+                                                <div class="modal fade" id="default-Modal" tabindex="-1" role="dialog">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Add Role</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                            <form action="{{ route('roles.store') }}" method="post" id="addrole"
+            enctype="multipart/form-data">
+            @csrf
+                                                            <div class="form-group row">
+                                        <div class="col-sm-4 offset-1">
+                                        <label class="col-form-label text-md-right ">Role name</label>
+                                        <input type="text" name="name" value="{{ old('name') }}" class="form-control" required>
+                                        </div>
+
+                                        <div class="col-sm-4 offset-1">
+                                        <label class="col-form-label text-md-right ">Permissions</label>
+                                        <select  class="col-sm-12"  name="permissions[]" id="" placeholder="Role" required class="form-control selectric" multiple required>
+                                            <option value="">Select</option>
+                                            @foreach($permissions as $permission)
+                                                <option value="{{ $permission['id'] }}" {{ (collect(old('permissions'))->contains($permission['id'])) ? 'selected':'' }}>{{ $permission['name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                        </div>
+
+
+                                                            </div>
+
+                       
+
+                                            
+                            
+                                   
+                                   
+                                                           
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary waves-effect waves-light ">Submit</button>
+                                                            </div>
+                                                            </form> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                      
 
                                                        
                                                   
@@ -235,7 +301,10 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right "></label>
                                 <div class="col-sm-12 col-md-7 offset-5">
-                                    <button type="submit" class="btn btn-primary">Create User</button>
+                                    <button type="submit" class="btn btn-blue">Update</button>
+                                    <a href="{{ url('user_list') }}"
+                                    class=" d-inline text-center btn btn-blue font1 back" ><i
+                                        class="icofont icofont-arrow-left" ></i>Back&nbsp;&nbsp;</a>
                                 </div>
                             </div>
 
@@ -246,42 +315,59 @@
         </div>
     </div>
 
-
-     <div class="modal fade" id="default-Modal1" tabindex="-1" role="dialog">
+    {{-- <div class="modal fade" id="default-Modal1" tabindex="-1" role="dialog">
                                                                     <div class="modal-dialog modal-lg" role="document">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
-                                                                                <h4 class="modal-title">Add Role</h4>
+                                                                                <h4 class="modal-title">Add Product Sub Category</h4>
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                                             </div>
                                                                             <div class="modal-body">
-                                                                            <form action="{{ route('roles.store') }}" method="post" id="addrole"
-                            enctype="multipart/form-data">
-                            @csrf
+                                                                            <form action="/action_page.php">
                                                                             <div class="form-group row">
                                                         <div class="col-sm-4 offset-1">
-                                                        <label class="col-form-label text-md-right ">Role name</label>
-                                                        <input type="text" name="name" value="{{ old('name') }}" class="form-control" required>
+                                                        <label class="col-form-label text-md-right ">Category</label>
+                                                        <input type="text"  value="    " class="form-control" >
                                                         </div>
 
                                                         <div class="col-sm-4 offset-1">
-                                                        <label class="col-form-label text-md-right ">Permissions</label>
-                                                        <select  class="col-sm-12"  name="permissions[]" id="" placeholder="Role" required class="form-control selectric" multiple required>
-                                                            <option value="">Select</option>
-                                                            @foreach($permissions as $permission)
-                                                                <option value="{{ $permission['id'] }}" {{ (collect(old('permissions'))->contains($permission['id'])) ? 'selected':'' }}>{{ $permission['name'] }}</option>
-                                                            @endforeach
-                                                        </select>
+                                                        <label class="col-form-label text-md-right ">Sub Category Short Code</label>
+                                                        <input type="text"  value="    " class="form-control" >
                                                         </div>
 
 
                                                                             </div>
 
-                                       
+                                                                            <div class="form-group row">
+                                                                            <div class="col-sm-4 offset-1">
+                                                        <label class="col-form-label text-md-right ">Sub Category Desc</label>
+                                                        <input type="text"  value="    " class="form-control" >
+                                                        </div>
 
-                                                            
+                                                        <div class="col-sm-4 offset-1">
+                                                        <label class="col-form-label text-md-right ">Category Image Picture</label>
+                                                        <input type="file" class="custom-file-input" name="file[]" id="file">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                                        </div>
+                                                                            </div>
+
+                                                                            <div class="form-group row">
+
+                                                        <div class="col-sm-4 offset-1">
+                                                        <label class="col-form-label text-md-right ">Status</label>
+                                                        <select  class="js-example-basic-single col-sm-12" name="status_id" id="" placeholder="Status" required class="form-control selectric" required>
+                                        
+                                        @foreach($statuses as $status)
+                                            <option value="{{ $status['id'] }}" {{ (old("status_id") == $status['id'] ? "selected":"") }}>{{ $status['status_desc'] }}</option>
+                                        @endforeach
+                                    </select>
+                                          
+                                                        </div>
+                                                        <div class="col-sm-4 offset-1"></div>    
+                                         
+                                                    </div>
                                             
                                                    
                                                    
@@ -299,7 +385,7 @@
 
 
 
-                                                                {{--       <div class="modal fade" id="default-Modal" tabindex="-1" role="dialog">
+                                                                <div class="modal fade" id="default-Modal" tabindex="-1" role="dialog">
                                                                     <div class="modal-dialog modal-lg" role="document">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
@@ -394,7 +480,7 @@
     </div>
 </div>
 @endsection
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 <script type="text/javascript">
 
@@ -422,4 +508,4 @@ validatePassword;
 </script>
 
 
-
+ --}}

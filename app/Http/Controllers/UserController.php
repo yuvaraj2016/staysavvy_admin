@@ -216,7 +216,18 @@ class UserController extends Controller
         }
          $roles = $response['data'];
 
+         try{
 
+            $call = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/permissions?limit=1000');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+            //  return $response;
+        }catch (\Exception $e){
+            //buy a beer
+
+
+        }
+         $permissions = $response['data'];
 
        
          $response=Http::withToken($session)->get(config('global.url').'/api/users/'.$id);
@@ -227,7 +238,7 @@ class UserController extends Controller
             $user= $response->json()['data'];
 
             return view('edit_user', compact(
-                'roles','user'
+                'roles','user','permissions'
             ));
         }
     }
@@ -274,8 +285,11 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+    
     {
         $session = session()->get('token');
+
+        // return $id;
 
         $response=Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->delete(config('global.url').'api/users/'.$id);
     
@@ -285,8 +299,10 @@ class UserController extends Controller
         }
         else{
 
-          //  dd($response);
-             return redirect()->route('user.index')->with('error',$response->json()['message']);
+        //    dd($response);
+            // return $response['message'];
+
+             return redirect()->route('user.index')->with('error',$response['message']);
         }
     }
 

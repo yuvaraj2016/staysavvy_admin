@@ -17,6 +17,12 @@
         <a href="{{ route('users.create') }}" class="btn btn-primary">Add New</a>
     </div>  --}}
 
+    @if(Session::has('error'))
+    <div class="alert errorWrap">
+        {{session('error')}}
+    </div>
+    @endif
+
 <style>
 #pagination li
 {

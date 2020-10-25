@@ -201,6 +201,8 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+
+        // return $id;
         $session = session()->get('token');
 
         $response=Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->delete(config('global.url').'api/roles/'.$id);
@@ -212,7 +214,7 @@ class RoleController extends Controller
         else{
 
           //  dd($response);
-             return redirect()->route('role.index')->with('error',$response->json()['message']);
+             return redirect()->route('role.index')->with('error',$response['message']);
         }
     }
 }

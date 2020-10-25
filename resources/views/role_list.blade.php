@@ -52,6 +52,11 @@ function wordSplit($longString,$length=20){
         <a href="{{ route('roles.create') }}" class="btn btn-primary">Add New</a>
     </div>  --}}
 
+    @if(Session::has('error'))
+    <div class="alert errorWrap">
+        {{session('error')}}
+    </div>
+    @endif
 <style>
 #pagination li
 {
