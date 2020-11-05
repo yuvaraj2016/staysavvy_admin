@@ -134,7 +134,7 @@
                             <table id="basic-btn" class="table table-striped table-bordered nowrap">
                                 <thead>
                                     <tr>
-                                       
+                                    <th>Actions</th>
                                        <th>Name</th>
                                        <th>Address</th>
                                        <th>Location</th>
@@ -148,7 +148,7 @@
                                        <th>Amenity</th>
                                     <th>Status Desc</th>
                                         <th>Created At</th>
-                                        <th>Actions</th>
+                                      
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -161,6 +161,31 @@
                                     @endphp
 
                                     <tr>
+                                    <td>
+                                            <div class="d-flex">
+                                                <ul class="list-group list-inline ml-1">
+                                                    <li class="list-group-item border1"><a href="{{ url('properties/'.$id) }}" class=" d-inline font1 " id="alert1" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-eye"></i></a></li>
+                                                    <!-- <li class="list-group-item border1"><a href="{{ url('status/'.$id.'/edit') }}" class=" d-inline font1" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a></li> -->
+                                                    <li class="list-group-item border1"><a href="{{ url('properties/'.$id.'/edit') }}"  class=" d-inline font1 edit-confirmation" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a></li>
+                                           
+
+                                                    <li class="list-group-item border1">
+                                                    <form id="delete_from_{{$propertys['id']}}" method="POST" action="{{route('properties.destroy', $propertys['id']) }}">
+                    {{ csrf_field() }}
+    {{ method_field('DELETE') }}
+
+    <div class="form-group">
+        <a href="javascript:void(0);" data-id="{{$propertys['id']}}" class="_delete_data"  data-toggle="tooltip" data-placement="top" title="Delete" style="background-color:#fff!important;position: relative;top:-1px!important; padding-top:3px!important;padding-bottom:8px!important;">
+        <i class="fa fa-trash" style="position: relative;top:-5;color:#01a9ac"></i>
+        </a>                    
+    </div>
+</form></li>
+                                                    <!-- <li class="list-group-item border1 btn-delete"><a href="{{ url('status/'.$id) }}" class=" d-inline font1" data-toggle="tooltip" data-placement="top" title="Audit"><i class="fa fa-calculator"></i></a></li> -->
+                                                </ul>
+
+
+                                            </div>
+                                        </td>
                                     <td>
                                             {{ $propertys['name'] }}
                                         </td>
@@ -275,31 +300,7 @@
 
 
                                         <td>{{ date("Y-m-d H:i:s",$propertys['created_at']) }}</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <ul class="list-group list-inline ml-1">
-                                                    <li class="list-group-item border1"><a href="{{ url('properties/'.$id) }}" class=" d-inline font1 view-confirmation" id="alert1" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-eye"></i></a></li>
-                                                    <!-- <li class="list-group-item border1"><a href="{{ url('status/'.$id.'/edit') }}" class=" d-inline font1" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a></li> -->
-                                                    <li class="list-group-item border1"><a href="{{ url('properties/'.$id.'/edit') }}"  class=" d-inline font1 edit-confirmation" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a></li>
-                                           
-
-                                                    <li class="list-group-item border1">
-                                                    <form id="delete_from_{{$propertys['id']}}" method="POST" action="{{route('property.destroy', $propertys['id']) }}">
-                    {{ csrf_field() }}
-    {{ method_field('DELETE') }}
-
-    <div class="form-group">
-        <a href="javascript:void(0);" data-id="{{$propertys['id']}}" class="_delete_data"  data-toggle="tooltip" data-placement="top" title="Delete" style="background-color:#fff!important;position: relative;top:-1px!important; padding-top:3px!important;padding-bottom:8px!important;">
-        <i class="fa fa-trash" style="position: relative;top:-5;color:#01a9ac"></i>
-        </a>                    
-    </div>
-</form></li>
-                                                    <!-- <li class="list-group-item border1 btn-delete"><a href="{{ url('status/'.$id) }}" class=" d-inline font1" data-toggle="tooltip" data-placement="top" title="Audit"><i class="fa fa-calculator"></i></a></li> -->
-                                                </ul>
-
-
-                                            </div>
-                                        </td>
+                                  
                                     </tr>
 
 

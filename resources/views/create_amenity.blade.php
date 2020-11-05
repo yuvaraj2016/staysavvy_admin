@@ -111,7 +111,7 @@
 
                             <div class="form-group row ">
                             <div class="col-sm-4">
-                                                        <label class="col-form-label text-md-right ">Tax name</label>
+                                                        <label class="col-form-label text-md-right ">Amenity name</label>
                                                         <input name="name" value="{{ old('name') }}" class="summernote-simple form-control" required>
                
                                                         </div>

@@ -308,7 +308,74 @@ class PropertiesController extends Controller
 
 
        
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confPropertyType/' . $id);
+        try{
+
+            $call = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confTax');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+           
+        }catch (\Exception $e){
+            
+
+
+        }
+         $tax = $response['data'];
+
+         try{
+
+            $call = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confAmenity');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+           
+        }catch (\Exception $e){
+            
+
+
+        }
+         $amenity = $response['data'];
+
+         try{
+
+            $call = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confStatus');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+            //  return $response;
+        }catch (\Exception $e){
+            //buy a beer
+
+
+        }
+         $statuses = $response['data'];
+
+         try{
+
+            $call = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confHostType');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+            //  return $response;
+        }catch (\Exception $e){
+            //buy a beer
+
+
+        }
+         $host = $response['data'];
+
+         try{
+
+            $call = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confPropertyType');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+            //  return $response;
+        }catch (\Exception $e){
+            //buy a beer
+
+
+        }
+         $property_type = $response['data'];
+
+
+
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/property/' . $id);
 
        
      
@@ -316,12 +383,12 @@ class PropertiesController extends Controller
 
         if($response->ok()){
 
-            $property =   $response->json()['data'];
+            $properties =   $response->json()['data'];
 
-            // return $status;
+            //  return $properties;
 
-            return view('edit_property', compact(
-               'property'
+            return view('edit_properties', compact(
+               'properties', 'tax','amenity','statuses','host','property_type'
             ));
         }
     }
@@ -336,23 +403,51 @@ class PropertiesController extends Controller
     public function update(Request $request, $id)
     {
         $session = session()->get('token');
-      
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->put(config('global.url').'/api/confPropertyType/'.$id, 
+        $taxes='';
+        $amenities='';
+
+        foreach($request->taxes as $tax)
+        {
+
+            $taxes .= $tax.",";
+        }
+
+        foreach($request->amenities as $amenity)
+        {
+
+            $amenities .= $amenity.",";
+        }
+
+        $taxes = rtrim($taxes,",");
+        // return  $taxes;
+        $amenities = rtrim($amenities,",");
+        //  return  $amenities;
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->post(config('global.url').'/api/property/'.$id, 
+        
         [
             "_method"=> 'PUT',
+                    
             "name"=>$request->name,
-            "description"=>$request->description,
-            "status_id"=>$request->status_id       
+            "address"=>$request->address,
+            "location"=>$request->location,
+            "host_type_id"=>$request->host_type_id,
+            "property_mgmt_system"=>$request->property_mgmt_system,
+            "central_res_system"=>$request->central_res_system,
+            "property_type_id"=>$request->property_type_id,
+            "general_description"=>$request->general_description,
+            "status_id"=>$request->status_id,
+            "taxes[]"=>"1",
+            "amenities[]"=>"1"
         ]
         
       );
 
-        
+        // return $response;
         if($response->headers()['Content-Type'][0]=="text/html; charset=UTF-8"){
             return redirect()->route('home');
         }
         if($response->status()===200){
-            return redirect()->back()->with('success','Property Updated Successfully!');
+            return redirect()->back()->with('success','Item Updated Successfully!');
         }else{
             return redirect()->back()->with('error',$response->json()['message']);
         }
@@ -369,16 +464,16 @@ class PropertiesController extends Controller
     {
         $session = session()->get('token');
 
-        $response=Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->delete(config('global.url').'api/confPropertyType/'.$id);
+        $response=Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->delete(config('global.url').'api/property/'.$id);
 
         if($response->status()==204){
 
-             return redirect()->route('property.index')->with('success','Property Deleted Sucessfully !..');
+             return redirect()->route('properties.index')->with('success','Properties Deleted Sucessfully !..');
         }
         else{
 
 
-             return redirect()->route('property.index')->with('error',$response->json()['message']);
+             return redirect()->route('properties.index')->with('error',$response->json()['message']);
         }
 
     }
