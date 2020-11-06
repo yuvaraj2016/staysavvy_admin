@@ -42,49 +42,15 @@ class AssetsController extends Controller
 
         $id =  $request->segment(4);
 
-        if($module=="product_categories")
+        if($module=="properties")
         {
-            $apicall = "api/prodCat/".$id;
+            $apicall = "api/property/".$id;
             // $view = "edit_image_product_category";
         }
 
-        else if($module=="product_sub_categories")
-        {
-            $apicall = "api/prodSubCat/".$id;
-            // $view = "edit_image_product_sub_category";
-        }
-
-        else if($module=="vendorstore")
-        {
-            $apicall = "api/vendorStores/".$id;
-            // $view = "edit_image_vendor_stores";
-        }
-
-        else if($module=="items")
-        {
-            $apicall = "api/item/".$id;
-            
-            // $view = "edit_item";
-        }
-        else if($module=="item_variants")
-        {
-            $apicall = "api/itemVariant/".$id;
-            
-            // $view = "edit_item";
-        }
-        else if($module=="suppliers")
-        {
-            $apicall = "api/suppliers/".$id;
-            
-            // $view = "edit_item";
-        }
-
-        else if($module=="vendors")
-        {
-            $apicall = "api/vendors/".$id;
-            
-            // $view = "edit_item";
-        }
+    
+       
+       
         // echo $session;exit;
         // dd($session);
         $fileext = '';
@@ -161,53 +127,24 @@ class AssetsController extends Controller
     {
         $module =  $request->segment(1);
         $id =  $request->segment(2);
-
-        if($module=="product_categories")
+        // return $id;
+        if($module=="properties")
         {
-            $apicall = "api/prodCat/".$id;
-            $view = "edit_image_product_category";
+            $apicall = "api/property/".$id;
+            $view = "edit_image_properties";
         }
 
-        else if($module=="product_sub_categories")
-        {
-            $apicall = "api/prodSubCat/".$id;
-            $view = "edit_image_product_sub_category";
-        }
-
-
-        else if($module=="vendorstore")
-        {
-            $apicall = "api/vendorStores/".$id;
-            $view = "edit_vendor_stores_image";
-        }
-
-        else if($module=="items")
-        {
-            $apicall = "api/item/".$id;
-            $view = "edit_image_item";
-        }
-        else if($module=="item_variants")
-        {
-            $apicall = "api/itemVariant/".$id;
-            $view = "edit_image_item_variant";
-        }
-        else if($module=="suppliers")
-        {
-            $apicall = "api/suppliers/".$id;
-            $view = "edit_supplier_image";
-        }
-        else if($module=="vendors")
-        {
-            $apicall = "api/vendors/".$id;
-            $view = "edit_vendor_image";
-        }
+       
+// return $apicall;
+       
+        
         $session = session()->get('token');
 
 
        
         $response=Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url').$apicall);
 
-        //  return $response;
+       //  return $response;
 
         if($response->ok()){
 

@@ -233,10 +233,10 @@ e
                                 </select>
                                                     </div>
 
-                                                    <!-- <div class="col-sm-4">
-                                                        <label class="col-form-label text-md-right ">Properties Image Picture</label>
-                                                        <input type="file" name="file[]" id="filer_input" multiple="multiple" class="form-control">
-                                                    </div> -->
+                                                    <div class="col-sm-4">
+                                                            <label class="col-form-label text-md-right ">Click below to edit images</label><br>
+                                                            <a href="{{ url('properties/'.$properties['id'].'/edit/assets') }}" class="btn btn-blue">Edit Image</a>
+                                                        </div>
                         </div>
 
                                                    
