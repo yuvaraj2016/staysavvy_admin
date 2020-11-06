@@ -436,18 +436,18 @@ class PropertiesController extends Controller
             "property_type_id"=>$request->property_type_id,
             "general_description"=>$request->general_description,
             "status_id"=>$request->status_id,
-            "taxes[]"=>"1",
-            "amenities[]"=>"1"
+            "taxes"=>$taxes,
+            "amenities"=>$amenities
         ]
         
       );
-      return $response;
+    //   return $response;
         // return $response;
         if($response->headers()['Content-Type'][0]=="text/html; charset=UTF-8"){
             return redirect()->route('home');
         }
         if($response->status()===200){
-            return redirect()->back()->with('success','Item Updated Successfully!');
+            return redirect()->back()->with('success','Properties Updated Successfully!');
         }else{
             return redirect()->back()->with('error',$response->json()['message']);
         }

@@ -173,26 +173,61 @@
                                               
                             <div class="form-group row ">
                         
+                         
+@php
+
+$taxids = [];
+
+foreach($properties['Taxes']['data'] as $taxid)
+{
+
+    $taxids[] = $taxid['id'];
+}
+@endphp
+
                         <div class="col-sm-4">
                                                     <label class="col-form-label text-md-right ">Taxes</label>
                                                     <select  class="js-example-basic-single col-sm-12" name="taxes[]" id="" multiple required class="form-control selectric" required>
                                     <option value="">Select</option>
-                                  
+                                 
+
+                                       
                                     @foreach($tax as $taxs)
- 
-                                        <option value="{{ $taxs['id'] }}" {{ ($properties['Taxes']['data'][0]['id'] == $taxs['id']) ? "selected":(old("id") == $taxs['id'] ? "selected":"") }}>{{ $taxs['name'] }}</option>
+                                                                    <option value="{{ $taxs['id'] }}" {{ (collect($taxids)->contains($taxs['id'])) ? 'selected':((collect(old('taxes'))->contains($taxs['id'])) ? 'selected':'') }}>{{ $taxs['name'] }}</option>
+                                                                
+                                                             
+                                            
+                                            
+                                          
                                  
                                         @endforeach
                                 </select>
+                                <?php
+
+
+                                ?>
                                                     </div>
+
+                                                    @php
+
+$amenid = [];
+
+foreach($properties['Amenities']['data'] as $amenityid)
+{
+
+    $amenid[] = $amenityid['id'];
+}
+@endphp
+
                                                     <div class="col-sm-4">
                                                     <label class="col-form-label text-md-right ">Amenity</label>
                                                     <select  class="js-example-basic-single col-sm-12" name="amenities[]" id="" multiple placeholder="status" required class="form-control selectric" >
                                     <option value="">Select</option>
                                     @foreach($amenity as $amenitys)
                                      
-                                    <option value="{{ $amenitys['id'] }}" {{ ($properties['Amenities']['data'][0]['id'] == $amenitys['id']) ? "selected":(old("id") == $amenitys['id'] ? "selected":"") }}>{{ $amenitys['name'] }}</option>
-
+                                   
+                                    <option value="{{ $amenitys['id'] }}" {{ (collect($amenid)->contains($amenitys['id'])) ? 'selected':((collect(old('amenitys'))->contains($amenitys['id'])) ? 'selected':'') }}>{{ $amenitys['name'] }}</option>
+e
                                     
                                     @endforeach
                                 </select>
