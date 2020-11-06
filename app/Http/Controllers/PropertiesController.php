@@ -441,7 +441,7 @@ class PropertiesController extends Controller
         ]
         
       );
-
+      return $response;
         // return $response;
         if($response->headers()['Content-Type'][0]=="text/html; charset=UTF-8"){
             return redirect()->route('home');
