@@ -130,6 +130,12 @@ Route::resource('commission', 'CommissionController')->except('index')->middlewa
 
 Route::get('commission_list/{page?}','CommissionController@index')->name('commission.index')->middleware('checktoken');
 
+
+Route::resource('rooms', 'RoomController')->except('index')->middleware('checktoken');
+
+Route::get('rooms_list/{page?}','RoomController@index')->name('rooms.index')->middleware('checktoken');
+
+
 Route::get('getuser', function () {
     return 1;
 });

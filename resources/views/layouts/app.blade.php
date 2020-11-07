@@ -520,6 +520,25 @@ font-size:13px!important;
                               </div>
                            
                           </li>
+
+
+
+                          <li class="nav-item  dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-flag" style="margin-left:5px!important;"></i>
+                                Property
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                             
+                                <a class="dropdown-item {{ (request()->is('properties_list')) ? 'active' : '' }}" href="{{ route('properties.index') }}">Property</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item {{ (request()->is('rooms_list')) ? 'active' : '' }}" href="{{ route('rooms.index') }}">Room</a>
+                               
+                            
+                              </div>
+                           
+                          </li>
                     
                           {{-- <li class="nav-item {{ (request()->is('stock_master_list')) ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('stock_master.index') }}">
@@ -544,14 +563,14 @@ font-size:13px!important;
                             
                             </div>
                           </li> --}}
-                          <li class="nav-item {{ (request()->is('properties_list')) ? 'active' : '' }}">
+                          <!-- <li class="nav-item {{ (request()->is('properties_list')) ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('properties.index') }}">
                               <i class="fa fa-flag">
                                
                               </i>
                               Property
                             </a>
-                          </li>
+                          </li> -->
 
                           <li class="nav-item">
                             <a class="nav-link" href="#">
