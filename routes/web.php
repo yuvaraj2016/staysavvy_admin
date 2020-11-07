@@ -125,6 +125,11 @@ Route::resource('assets', 'AssetsController')->except('store')->middleware('chec
 Route::get('{slug?}/{id}/edit/assets','AssetsController@editimage')->name('assets.edit')->middleware('checktoken');
 
 
+
+Route::resource('commission', 'CommissionController')->except('index')->middleware('checktoken');
+
+Route::get('commission_list/{page?}','CommissionController@index')->name('commission.index')->middleware('checktoken');
+
 Route::get('getuser', function () {
     return 1;
 });

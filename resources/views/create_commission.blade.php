@@ -9,7 +9,7 @@
             <div class="col-lg-8">
                 <div class="page-header-title">
                     <div class="d-inline">
-                        <h4>Create Rooms</h4>
+                        <h4>Create Booking Commission</h4>
                         {{-- <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span> --}}
                     </div>
                 </div>
@@ -19,11 +19,11 @@
                     <ul class="breadcrumb-title">
                         <li class="breadcrumb-item">
                            
-                                <i class="">Create Rooms</i>
+                                <i class="">Create Booking Commission</i>
                           
                         </li>
                       
-                        <li class="breadcrumb-item"><a href="{{ route('roomtype.index') }}">Rooms</a>
+                        <li class="breadcrumb-item"><a href="{{ route('commission.index') }}">Booking Commission</a>
                         </li>
                        
                     </ul>
@@ -54,7 +54,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('roomtype.store') }}" class="swa-confirm"  method="post" id="addstatus"
+                        <form action="{{ route('commission.store') }}" class="swa-confirm"  method="post" id="addstatus"
                             enctype="multipart/form-data">
                             @csrf
 
@@ -110,49 +110,61 @@
 
 
                             <div class="form-group row ">
-                            <div class="col-sm-4 ">
-                                                        <label class="col-form-label text-md-right ">Room Name</label>
-                                                        <input name="name" value="{{ old('name') }}" class="summernote-simple form-control" required>
-               
-                                                        </div>
-
-                                                        <div class="col-sm-4">
-                                                        <label class="col-form-label text-md-right ">Room Code</label>
-                                                        <input name="code" value="{{ old('code') }}" class="summernote-simple form-control" required>
-               
+                            <div class="col-sm-4">
+                                                        <label class="col-form-label text-md-right ">Property</label>
+                                                        <select  class="js-example-basic-single col-sm-12" name="property_id" id="" multiple required class="form-control selectric" required>
+                                        <option value="">Select</option>
+                                        @foreach($property as $propertys)
+                                            <option value="{{ $propertys['id'] }}" {{ (old("id") == $propertys['id'] ? "selected":"") }}>{{ $propertys['name'] }}</option>
+                                        @endforeach
+                                    </select>
                                                         </div>
                             <div class="col-sm-4">
-                                <label class="col-form-label text-md-right c">Description</label>
+                                <label class="col-form-label text-md-right c">From</label>
                                 
-                                    <input name="description" value="{{ old('description') }}" class="summernote-simple form-control" required>
+                                    <input type="number" step="any" name="from" value="{{ old('from') }}" class="summernote-simple form-control" required>
+                               
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="col-form-label text-md-right c">To</label>
+                                
+                                    <input type="number" step="any" name="to"  value="{{ old('to') }}" class="summernote-simple form-control" required>
                                
                             </div>
                             </div>
 
-                    
-
-
                             <div class="form-group row ">
-                        
-                                                        <div class="col-sm-4">
+
+                            <div class="col-sm-4">
+                                <label class="col-form-label text-md-right c">Percentage</label>
+                                
+                                    <input type="number" step="any" name="percentage" value="{{ old('percentage') }}" class="summernote-simple form-control" required>
+                               
+                            </div>
+
+
+                            <div class="col-sm-4">
                                                         <label class="col-form-label text-md-right ">Status</label>
-                                                        <select  class="js-example-basic-single col-sm-12" name="status_id" id="" placeholder="status" required class="form-control selectric" required>
+                                                        <select  class="js-example-basic-single col-sm-12" name="status_id" id="" multiple  class="form-control selectric" required>
                                         <option value="">Select</option>
-                                        @foreach($statuses as $status)
-                                            <option value="{{ $status['id'] }}" {{ (old("status_id") == $status['id'] ? "selected":"") }}>{{ $status['status_desc'] }}</option>
+                                        @foreach($statuses as $statusess)
+                                            <option value="{{ $statusess['id'] }}" {{ (old("id") == $statusess['id'] ? "selected":"") }}>{{ $statusess['status_desc'] }}</option>
                                         @endforeach
                                     </select>
                                                         </div>
+
+
+
                             </div>
 
-                     
+
 
 
 
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right "></label>
                                 <div class="col-sm-12 col-md-7 offset-5">
-                                    <button type="submit" id="submit" class="btn btn-primary">Create Status</button>
+                                    <button type="submit" id="submit" class="btn btn-primary">Create Commission</button>
                                 </div>
                             </div>
 

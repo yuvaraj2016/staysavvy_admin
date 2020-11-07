@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-
-class BookingroomController extends Controller
+use Illuminate\Support\Facades\Redis;
+use GuzzleHttp\Client;
+class CommissionController extends Controller
 {
-    /**
+    
+  /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -26,7 +28,7 @@ class BookingroomController extends Controller
         $token = session()->get('token');
         try{
 
-            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confRoomType?page='.$page);
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confCommission?page='.$page);
 
             $response = json_decode($call->getBody()->getContents(), true);
             //  return $response;
@@ -35,13 +37,13 @@ class BookingroomController extends Controller
 
 
         }
-        $roomtype = $response['data'];
+        $configcommission = $response['data'];
         $pagination = $response['meta']['pagination'];
 
         $lastpage = $pagination['total_pages'];
         
 
-          return view('booking_room_list', compact('roomtype', 'pagination','lastpage'));
+          return view('config_commission_list', compact('configcommission', 'pagination','lastpage'));
     }
 
     /**
@@ -55,6 +57,18 @@ class BookingroomController extends Controller
         $token = session()->get('token');
         try{
 
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/property');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+            //  return $response;
+        }catch (\Exception $e){
+            //buy a beer
+
+
+        }
+         $property = $response['data'];
+         try{
+
             $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confStatus');
 
             $response = json_decode($call->getBody()->getContents(), true);
@@ -67,8 +81,8 @@ class BookingroomController extends Controller
          $statuses = $response['data'];
 
          return view(
-            'create_room', compact(
-                'statuses'
+            'create_commission', compact(
+                'statuses','property'
             )
             );
 
@@ -86,15 +100,17 @@ class BookingroomController extends Controller
         $session = session()->get('token');
 
 
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->post(config('global.url').'api/confRoomType',
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->post(config('global.url').'api/confCommission',
 
         [
 
-            "name"=>$request->name,
-            "code"=>$request->code,
+            "property_id"=>$request->property_id,
+            "from"=>$request->from,
 
-            "description"=>$request->description,
-         
+            "to"=>$request->to,
+         "percentage"=>$request->percentage,
+
+   
 
             "status_id"=>$request->status_id,
            
@@ -103,12 +119,12 @@ class BookingroomController extends Controller
 
         if($response->status()===201){
 
-            return redirect()->route('roomtype.create')->with('success','Booking Rooms Created Successfully!');
+            return redirect()->route('commission.create')->with('success','Booking Commission Created Successfully!');
         }else{
 
             $request->flash();
 
-            return redirect()->route('roomtype.create')->with('error',$response['errors']);
+            return redirect()->route('commission.create')->with('error',$response['errors']);
         }
     }
 
@@ -123,7 +139,7 @@ class BookingroomController extends Controller
         $token = session()->get('token');
         try{
 
-            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confRoomType/'.$id);
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confCommission/'.$id);
 
             $response = json_decode($call->getBody()->getContents(), true);
             //  return $response;
@@ -132,13 +148,13 @@ class BookingroomController extends Controller
 
 
         }
-         $rooms = $response['data'];
+         $confCommission = $response['data'];
 
 
 
             return view(
-                'view_rooms', compact(
-                    'rooms'
+                'view_commission', compact(
+                    'confCommission'
                 )
         );
     }
@@ -155,6 +171,18 @@ class BookingroomController extends Controller
 
         try{
 
+            $call = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/property');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+            //  return $response;
+        }catch (\Exception $e){
+            //buy a beer
+
+
+        }
+         $property = $response['data'];
+         try{
+
             $call = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confStatus');
 
             $response = json_decode($call->getBody()->getContents(), true);
@@ -166,7 +194,7 @@ class BookingroomController extends Controller
         }
          $statuses = $response['data'];
        
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confRoomType/' . $id);
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confCommission/' . $id);
 
        
      
@@ -174,12 +202,12 @@ class BookingroomController extends Controller
 
         if($response->ok()){
 
-            $rooms =   $response->json()['data'];
+            $commission =   $response->json()['data'];
 
-            // return $status;
+          //   return $commission;
 
-            return view('edit_rooms', compact(
-               'rooms','statuses'
+            return view('edit_commission', compact(
+               'commission','statuses','property'
             ));
         }
     }
@@ -195,14 +223,16 @@ class BookingroomController extends Controller
     {
         $session = session()->get('token');
       
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->put(config('global.url').'/api/confRoomType/'.$id, 
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->put(config('global.url').'/api/confCommission/'.$id, 
         [
             "_method"=> 'PUT',
-            "name"=>$request->name,
-            "code"=>$request->code,
+            "property_id"=>$request->property_id,
+            "from"=>$request->from,
 
-            "description"=>$request->description,
-    
+            "to"=>$request->to,
+            "percentage"=>$request->percentage,
+
+     
 
             "status_id"=>$request->status_id       
         ]
@@ -214,7 +244,7 @@ class BookingroomController extends Controller
             return redirect()->route('home');
         }
         if($response->status()===200){
-            return redirect()->back()->with('success','Booking Rooms Updated Successfully!');
+            return redirect()->back()->with('success','Booking Commission Updated Successfully!');
         }else{
             return redirect()->back()->with('error',$response->json()['message']);
         }
@@ -231,16 +261,16 @@ class BookingroomController extends Controller
     {
         $session = session()->get('token');
 
-        $response=Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->delete(config('global.url').'api/confRoomType/'.$id);
+        $response=Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->delete(config('global.url').'api/confCommission/'.$id);
 
         if($response->status()==204){
             // roomtype.index
-             return redirect()->route('roomtype.index')->with('success','Booking Rooms Deleted Sucessfully !..');
+             return redirect()->route('commission.index')->with('success','Booking Commission Deleted Sucessfully !..');
         }
         else{
 
 
-             return redirect()->route('roomtype.index')->with('error',$response->json()['message']);
+             return redirect()->route('commission.index')->with('error',$response->json()['message']);
         }
 
     }

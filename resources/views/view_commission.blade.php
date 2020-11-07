@@ -9,7 +9,7 @@
             <div class="col-lg-8">
                 <div class="page-header-title">
                     <div class="d-inline">
-                        <h4>View Booking Rooms</h4>
+                        <h4>View Booking Commission</h4>
                         {{-- <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span> --}}
                     </div>
                 </div>
@@ -19,11 +19,11 @@
                     <ul class="breadcrumb-title">
                         <li class="breadcrumb-item">
                            
-                                <i class="">View Rooms</i>
+                                <i class="">View Booking Commission</i>
                           
                         </li>
                       
-                        <li class="breadcrumb-item"><a href="{{ route('roomtype.index') }}">Booking Rooms</a>
+                        <li class="breadcrumb-item"><a href="{{ route('commission.index') }}">Booking Commission</a>
                         </li>
                        
                     </ul>
@@ -54,7 +54,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('roomtype.store') }}" method="post" id="addstatus"
+                        <form action="{{ route('commission.store') }}" method="post" id="addstatus"
                             enctype="multipart/form-data">
                             @csrf
                             @if(session('success') !== null)
@@ -77,36 +77,36 @@
                             <div class="form-group row">
 
                             <div class="col-sm-4 ">
-                                                        <label class="col-form-label text-md-right ">Room Name</label>
-                                                        <input type="text"  value="   {{ $rooms['name'] }}" class="form-control" readonly>
+                                                        <label class="col-form-label text-md-right ">Property Name</label>
+                                                        <input type="text"  value="   {{ $confCommission['property_name'] }}" class="form-control" readonly>
                                                         </div>
                                                         <div class="col-sm-4 ">
-                                                        <label class="col-form-label text-md-right ">Room Code</label>
-                                                        <input type="text"  value="   {{ $rooms['code'] }}" class="form-control" readonly>
+                                                        <label class="col-form-label text-md-right ">From</label>
+                                                        <input type="text"  value="   {{ $confCommission['from'] }}" class="form-control" readonly>
                                                         </div>
-                                                        <div class="col-sm-4 ">
-                                                        <label class="col-form-label text-md-right ">Room Desc </label>
-                                                        <input type="text"  value="    {{ $rooms['description'] }}" class="form-control" readonly>
-                                          
-                                                        </div>
+                                                  
+<div class="col-sm-4 ">
+                            <label class="col-form-label text-md-right ">To</label>
+                            <input type="text"  value="   {{ $confCommission['to'] }}" class="form-control" readonly>
+                            </div>
                                          
                                                     </div>
 
 
 
+                                                    <div class="form-group row">
 
-                        <div class="form-group row">
-
-
-                            <div class="col-sm-4 ">
-                            <label class="col-form-label text-md-right ">Status </label>
-                            <input type="text"  value="    {{ $rooms['status_desc'] }}" class="form-control" readonly>
-              
+<div class="col-sm-4 ">
+                            <label class="col-form-label text-md-right ">Percentage</label>
+                            <input type="text"  value="   {{ $confCommission['percentage'] }}" class="form-control" readonly>
                             </div>
-
+                            <div class="col-sm-4 ">
+                            <label class="col-form-label text-md-right ">status Desc</label>
+                            <input type="text"  value="   {{ $confCommission['status_desc'] }}" class="form-control" readonly>
+                            </div>
                             <div class="col-sm-4 ">
                             <label class="col-form-label text-md-right ">Created At </label>
-                            <input type="text"  value="    {{ date("Y-m-d H:i:s",$rooms['created_at']) }}" class="form-control" readonly>
+                            <input type="text"  value="    {{ date("Y-m-d H:i:s",$confCommission['created_at']) }}" class="form-control" readonly>
               
                             </div>
              
@@ -114,12 +114,8 @@
 
 
 
-                    
 
-
-
-
-                          
+                       
 
                         </form>
                     </div>

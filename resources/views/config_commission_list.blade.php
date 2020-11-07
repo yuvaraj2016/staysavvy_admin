@@ -33,7 +33,7 @@
             <div class="col-lg-8">
                 <div class="page-header-title">
                     <div class="d-inline">
-                        <h4>Booking Room List</h4>
+                        <h4>Booking Commission List</h4>
                         {{-- <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span> --}}
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                             </a>
                         </li>
 
-                        <li class="breadcrumb-item"><a href="{{ route('roomtype.index') }}">Booking Room  List</a>
+                        <li class="breadcrumb-item"><a href="{{ route('commission.index') }}">Booking Commission List</a>
                         </li>
 
                     </ul>
@@ -70,7 +70,7 @@
                     <div class="card-header table-card-header">
                         <div class="row">
                             <div class="section-header-button col-md-4">
-                                <a href="{{ route('roomtype.create') }}" id="alert" class="btn btn-primary" style="box-shadow: 0 2px 6px #acb5f6;
+                                <a href="{{ route('commission.create') }}" id="alert" class="btn btn-primary" style="box-shadow: 0 2px 6px #acb5f6;
                     background-color: #6777ef;
                     border-color: #6777ef;border-radius:30px">Add New</a>
                             </div>
@@ -80,7 +80,7 @@
                             <div class="section-header-button col-md-3 ">
                                 <div class="col">
                                 <ul id="pagination" class="float-right m-0 p-0">
-                                        <li><a href="{{ route('roomtype.index',$page=1) }}" class="btn btn-primary @if($pagination['current_page']==1) {{ "disabled" }} @endif">First</a></li>
+                                        <li><a href="{{ route('commission.index',$page=1) }}" class="btn btn-primary @if($pagination['current_page']==1) {{ "disabled" }} @endif">First</a></li>
                                         @php
                                         if(isset($pagination['links']['previous']))
                                         {
@@ -89,7 +89,7 @@
                                         $page = $endurl[1];
 
                                         @endphp
-                                        <li><a href="{{ route('roomtype.index',$page) }}" class="btn btn-primary">Previous</a></li>
+                                        <li><a href="{{ route('commission.index',$page) }}" class="btn btn-primary">Previous</a></li>
                                         @php
                                         }
                                         @endphp
@@ -104,7 +104,7 @@
                                         $page = $endurl[1];
                                         // echo
                                         @endphp
-                                        <li> <a href="{{ route('roomtype.index',$page) }}" class="btn btn-primary">Next</a></li>
+                                        <li> <a href="{{ route('commission.index',$page) }}" class="btn btn-primary">Next</a></li>
                                         @php
                                         }
 
@@ -114,7 +114,7 @@
                                         if($pagination['total_pages']>1)
                                         {
                                         @endphp
-                                        <li> <a href="{{ route('roomtype.index',$pagination['total_pages']) }}" class="btn btn-primary float-right">Last</a> </li>
+                                        <li> <a href="{{ route('commission.index',$pagination['total_pages']) }}" class="btn btn-primary float-right">Last</a> </li>
 
                                         @php
                                         }
@@ -134,16 +134,11 @@
                             <table id="basic-btn" class="table table-striped table-bordered nowrap">
                                 <thead>
                                     <tr>
-                                    <th>Booking Name</th>
-                                        <th>Booking Room Code</th>
-                                        
-                                        <th>Booking Romm Desc</th>
-                                        <!-- <th>Room Location</th>
-                                        <th>Max Adult</th>
-                                        <th>Max Children</th>
-                                        <th>Max Occupancy</th> -->
-                                       
-                                    <th>Status Desc</th>
+                                        <th>Property Name</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Percentage</th>
+                                    <th>Status</th>
                                         <th>Created At</th>
                                         <th>Actions</th>
                                     </tr>
@@ -151,46 +146,46 @@
                                 <tbody>
 
                                 {{-- @dd($prodcategories) --}}
-                                    @foreach($roomtype as $roomtypes )
+                                    @foreach($configcommission as $configcommissions )
                                     @php
-                                    $id=$roomtypes['id'];
+                                    $id=$configcommissions['id'];
                                     @endphp
 
                                     <tr>
                                     <td>
-                                            {{ $roomtypes['name'] }}
+                                            {{ $configcommissions['property_name'] }}
                                         </td>
 
                                         <td>
-                                            {{ $roomtypes['code'] }}
+                                            {{ $configcommissions['from'] }}
                                         </td>
                                         <td>
-                                            {{ $roomtypes['description'] }}
+                                            {{ $configcommissions['to'] }}
                                         </td>
-
-                                        
 
                                         <td>
-                                            {{ $roomtypes['status_desc'] }}
+                                            {{ $configcommissions['percentage'] }}
+                                        </td>
+                                        <td>
+                                            {{ $configcommissions['status_desc'] }}
                                         </td>
 
-
-                                        <td>{{ date("Y-m-d H:i:s",$roomtypes['created_at']) }}</td>
+                                        <td>{{ date("Y-m-d H:i:s",$configcommissions['created_at']) }}</td>
                                         <td>
                                             <div class="d-flex">
                                                 <ul class="list-group list-inline ml-1">
-                                                    <li class="list-group-item border1"><a href="{{ url('roomtype/'.$id) }}" class=" d-inline font1 view-confirmation" id="alert1" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-eye"></i></a></li>
-                                                    <!-- <li class="list-group-item border1"><a href="{{ url('status/'.$id.'/edit') }}" class=" d-inline font1" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a></li> -->
-                                                    <li class="list-group-item border1"><a href="{{ url('roomtype/'.$id.'/edit') }}"  class=" d-inline font1 edit-confirmation" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a></li>
-                                              
+                                                    <li class="list-group-item border1"><a href="{{ url('commission/'.$id) }}" class=" d-inline font1 view-confirmation" id="alert1" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-eye"></i></a></li>
+                                                  
+                                                    <li class="list-group-item border1"><a href="{{ url('commission/'.$id.'/edit') }}"  class=" d-inline font1 edit-confirmation" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a></li>
+  
 
                                                     <li class="list-group-item border1">
-                                                    <form id="delete_from_{{$roomtypes['id']}}" method="POST" action="{{route('roomtype.destroy', $roomtypes['id']) }}">
+                                                    <form id="delete_from_{{$configcommissions['id']}}" method="POST" action="{{route('commission.destroy', $configcommissions['id']) }}">
                     {{ csrf_field() }}
     {{ method_field('DELETE') }}
 
     <div class="form-group">
-        <a href="javascript:void(0);" data-id="{{$roomtypes['id']}}" class="_delete_data"  data-toggle="tooltip" data-placement="top" title="Delete" style="background-color:#fff!important;position: relative;top:-1px!important; padding-top:3px!important;padding-bottom:8px!important;">
+        <a href="javascript:void(0);" data-id="{{$configcommissions['id']}}" class="_delete_data"  data-toggle="tooltip" data-placement="top" title="Delete" style="background-color:#fff!important;position: relative;top:-1px!important; padding-top:3px!important;padding-bottom:8px!important;">
         <i class="fa fa-trash" style="position: relative;top:-5;color:#01a9ac"></i>
         </a>                    
     </div>
