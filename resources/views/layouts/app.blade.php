@@ -510,7 +510,7 @@ font-size:13px!important;
                           @endif
 
                         <li class="nav-item  dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id"navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-user" style="margin-left:5px!important;"></i>
                               Users
                             </a>
@@ -522,6 +522,25 @@ font-size:13px!important;
                                 <a class="dropdown-item {{ (request()->is('role_list')) ? 'active' : '' }}" href="{{ route('role.index') }}">Roles</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item {{ (request()->is('permission_list')) ? 'active' : '' }}" href="{{ route('permission.index') }}">Permissions</a>
+                            
+                              </div>
+                           
+                          </li>
+
+
+
+                          <li class="nav-item  dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-flag" style="margin-left:5px!important;"></i>
+                                Property
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                             
+                                <a class="dropdown-item {{ (request()->is('properties_list')) ? 'active' : '' }}" href="{{ route('properties.index') }}">Property</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item {{ (request()->is('rooms_list')) ? 'active' : '' }}" href="{{ route('rooms.index') }}">Room</a>
+                               
                             
                               </div>
                            
