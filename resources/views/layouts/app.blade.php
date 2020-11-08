@@ -527,7 +527,7 @@ font-size:13px!important;
                            
                           </li>
 
-
+                          @if(collect(session('permissions'))->contains('List bookings'))
 
                           <li class="nav-item  dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -545,6 +545,8 @@ font-size:13px!important;
                               </div>
                            
                           </li>
+
+                          @endif
                     
                           {{-- <li class="nav-item {{ (request()->is('stock_master_list')) ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('stock_master.index') }}">
