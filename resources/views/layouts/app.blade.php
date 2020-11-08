@@ -492,7 +492,7 @@ font-size:13px!important;
                         {{-- <li class="nav-item {{ (request()->is('booking_list')) ? 'active' : '' }}">
                           <a class="nav-link" href="#">
                             <i class="fa fa-key" style="margin-left:5px!important;"></i>
-                          Bookings
+                          Bookingssadfdsa
                             {{-- <span class="sr-only">(current)</span> --}}
                             {{-- </a>
                         </li> --}} 
