@@ -62,9 +62,9 @@ class UserController extends Controller
 
             try{
 
-                $profresponse = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') .'api/me');
+                $userresponse = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') .'api/me');
 
-                // $profresponse = json_decode($call->getBody()->getContents(), true);
+                // $userresponse = json_decode($userdetails->getBody()->getContents(), true);
 
                
                
@@ -74,13 +74,29 @@ class UserController extends Controller
 
             }
 
-            if($profresponse->ok()){
+            $permissions =[];
 
-                // return $profresponse->json()['data']['name'];
+            if($userresponse->ok()){
+
+                $userdetails =  json_decode($userresponse->getBody()->getContents(), true);;
+
+                foreach($userdetails['data']['roles']['data'] as $userdetail)
+                {
+                    foreach($userdetail['permissions']['data'] as $permission)
+                    {
+                        $permissions[]= $permission['name'];
+
+                    }
+
+                }
+
+                // return $permissions;
                 
-                $username = $profresponse->json()['data']['name'];
+                $username = $userresponse->json()['data']['name'];
 
                 $request->session()->put('username',$username);
+
+                $request->session()->put('permissions',$permissions);
         
                 $request->session()->save();
 

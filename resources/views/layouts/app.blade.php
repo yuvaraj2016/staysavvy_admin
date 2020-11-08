@@ -485,6 +485,9 @@ font-size:13px!important;
                     </button>
                   
                     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="background-color:#1B476B; color:#fff;width:100%;">
+                    {{-- @php
+                    print_r(session('permissions'));
+                    @endphp --}}
                       <ul class="navbar-nav ml-auto mt-1" style="margin-left:23%!important;">
                         {{-- <li class="nav-item {{ (request()->is('booking_list')) ? 'active' : '' }}">
                           <a class="nav-link" href="#">
@@ -493,6 +496,9 @@ font-size:13px!important;
                             {{-- <span class="sr-only">(current)</span> --}}
                             {{-- </a>
                         </li> --}} 
+                        
+                        @if(collect(session('permissions'))->contains('List bookings'))
+                       
                         <li class="nav-item {{ (request()->is('booking_list')) ? 'active' : '' }}">
                             <a class="nav-link " href="{{ route('booking.index') }}">
                                 <i class="zmdi zmdi-key" style="font-size:25px!important;margin-left:5px!important;"></i><br>
@@ -501,10 +507,10 @@ font-size:13px!important;
                            
                           </li>
 
-
+                          @endif
 
                         <li class="nav-item  dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id"navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-user" style="margin-left:5px!important;"></i>
                               Users
                             </a>
@@ -544,6 +550,7 @@ font-size:13px!important;
                             
                             </div>
                           </li> --}}
+                          @if(collect(session('permissions'))->contains('List property'))
                           <li class="nav-item {{ (request()->is('properties_list')) ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('properties.index') }}">
                               <i class="fa fa-flag">
@@ -552,6 +559,7 @@ font-size:13px!important;
                               Property
                             </a>
                           </li>
+                          @endif
 
                           <li class="nav-item">
                             <a class="nav-link" href="#">
@@ -560,7 +568,7 @@ font-size:13px!important;
                               Reviews
                             </a>
                           </li>
-
+                          @if(collect(session('permissions'))->contains('List Finance'))
                           <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="zmdi zmdi-file-text" style="font-size:25px!important;"></i><br>
@@ -568,6 +576,7 @@ font-size:13px!important;
                               Finance
                             </a>
                           </li>
+                          @endif
                           <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="fa fa-line-chart" style=""></i>
@@ -637,7 +646,7 @@ font-size:13px!important;
                               <i class="fa fa-user" style="margin-left:14px!important;">
                               
                               </i>
-                              {{  ucfirst(session('name')) }}
+                              {{  ucfirst(session('username')) }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                              
