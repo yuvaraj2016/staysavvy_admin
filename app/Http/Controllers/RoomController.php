@@ -378,7 +378,7 @@ class RoomController extends Controller
         $amenities = rtrim($amenities,",");
         //  return  $amenities;
 
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->post(config('global.url').'api/room/'.$id, 
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->post(config('global.url').'/api/room/'.$id, 
         [
             "_method"=> 'PUT',
             "property_id"=>$request->property_id,
@@ -394,7 +394,7 @@ class RoomController extends Controller
          "room_location"=>$request->room_location,
 
          "amount"=>$request->amount,
-        
+        //  "amenities[]"=>$amenities,
 
             "status_id"=>$request->status_id,
             "amenities"=>$amenities
@@ -402,7 +402,7 @@ class RoomController extends Controller
         
       );
 
-        return $response;
+        // return $response;
         if($response->headers()['Content-Type'][0]=="text/html; charset=UTF-8"){
             return redirect()->route('home');
         }
