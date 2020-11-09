@@ -47,7 +47,11 @@ class AssetsController extends Controller
             $apicall = "api/property/".$id;
             // $view = "edit_image_product_category";
         }
-
+elseif($module=="rooms")
+{
+    $apicall = "api/room/".$id;
+    // $view = "edit_image_room";
+}
     
        
        
@@ -134,7 +138,11 @@ class AssetsController extends Controller
             $view = "edit_image_properties";
         }
 
-       
+       elseif($module=="rooms")
+       {
+           $apicall = "api/room/".$id;
+           $view = "edit_image_room";
+       }
 // return $apicall;
        
         

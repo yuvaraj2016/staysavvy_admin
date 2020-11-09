@@ -312,6 +312,18 @@ class RoomController extends Controller
          $statuses = $response['data'];
          try{
 
+            $call = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confAmenity');
+
+            $response = json_decode($call->getBody()->getContents(), true);
+           
+        }catch (\Exception $e){
+            
+
+
+        }
+         $amenity = $response['data'];
+         try{
+
             $call = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/confRoomType');
 
             $response = json_decode($call->getBody()->getContents(), true);
@@ -333,10 +345,10 @@ class RoomController extends Controller
 
             $rooms =   $response->json()['data'];
 
-          //   return $commission;
+        //   return $rooms;
 
             return view('edit_property_room', compact(
-               'rooms','statuses','property','confRoomType'
+               'rooms','statuses','property','confRoomType','amenity'
             ));
         }
     }
@@ -351,9 +363,10 @@ class RoomController extends Controller
     public function update(Request $request, $id)
     {
         $session = session()->get('token');
+      
         $amenities='';
 
- 
+     
 
         foreach($request->amenities as $amenity)
         {
@@ -361,11 +374,11 @@ class RoomController extends Controller
             $amenities .= $amenity.",";
         }
 
-     
-
-        $amenities = rtrim($amenities,",");
       
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->put(config('global.url').'/api/room/'.$id, 
+        $amenities = rtrim($amenities,",");
+        //  return  $amenities;
+
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->post(config('global.url').'api/room/'.$id, 
         [
             "_method"=> 'PUT',
             "property_id"=>$request->property_id,
@@ -381,14 +394,15 @@ class RoomController extends Controller
          "room_location"=>$request->room_location,
 
          "amount"=>$request->amount,
-         "amenities[]"=>$amenities,
+        
 
-            "status_id"=>$request->status_id,    
+            "status_id"=>$request->status_id,
+            "amenities"=>$amenities
         ]
         
       );
 
-        
+        return $response;
         if($response->headers()['Content-Type'][0]=="text/html; charset=UTF-8"){
             return redirect()->route('home');
         }
