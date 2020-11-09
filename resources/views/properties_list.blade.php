@@ -70,9 +70,11 @@
                     <div class="card-header table-card-header">
                         <div class="row">
                             <div class="section-header-button col-md-4">
+                            @if(collect(session('permissions'))->contains('Create property'))
                                 <a href="{{ route('properties.create') }}" id="alert" class="btn btn-primary" style="box-shadow: 0 2px 6px #acb5f6;
                     background-color: #6777ef;
                     border-color: #6777ef;border-radius:30px">Add New</a>
+                    @endif
                             </div>
                             <div class="section-header-button col-md-5">
 
@@ -164,9 +166,17 @@
                                     <td>
                                             <div class="d-flex">
                                                 <ul class="list-group list-inline ml-1">
-                                                    <li class="list-group-item border1"><a href="{{ url('properties/'.$id) }}" class=" d-inline font1 " id="alert1" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-eye"></i></a></li>
+                                                    <li class="list-group-item border1">
+                                                    @if(collect(session('permissions'))->contains('List property'))
+                                                    <a href="{{ url('properties/'.$id) }}" class=" d-inline font1 " id="alert1" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-eye"></i></a>
+                                                @endif
+                                                </li>
                                                     <!-- <li class="list-group-item border1"><a href="{{ url('status/'.$id.'/edit') }}" class=" d-inline font1" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a></li> -->
-                                                    <li class="list-group-item border1"><a href="{{ url('properties/'.$id.'/edit') }}"  class=" d-inline font1 edit-confirmation" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a></li>
+                                                    <li class="list-group-item border1">
+                                                    @if(collect(session('permissions'))->contains('Update property'))
+                                                    <a href="{{ url('properties/'.$id.'/edit') }}"  class=" d-inline font1 edit-confirmation" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                                                @endif
+                                                </li>
                                            
 
                                                     <li class="list-group-item border1">
@@ -175,9 +185,11 @@
     {{ method_field('DELETE') }}
 
     <div class="form-group">
+    @if(collect(session('permissions'))->contains('Delete property'))
         <a href="javascript:void(0);" data-id="{{$propertys['id']}}" class="_delete_data"  data-toggle="tooltip" data-placement="top" title="Delete" style="background-color:#fff!important;position: relative;top:-1px!important; padding-top:3px!important;padding-bottom:8px!important;">
         <i class="fa fa-trash" style="position: relative;top:-5;color:#01a9ac"></i>
-        </a>                    
+        </a>    
+        @endif                
     </div>
 </form></li>
                                                     <!-- <li class="list-group-item border1 btn-delete"><a href="{{ url('status/'.$id) }}" class=" d-inline font1" data-toggle="tooltip" data-placement="top" title="Audit"><i class="fa fa-calculator"></i></a></li> -->

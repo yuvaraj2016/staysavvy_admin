@@ -58,9 +58,11 @@
                     <div class="card-header table-card-header">
                         <div class="row">
                             <div class="section-header-button col-md-4">
-                                <a href="{{ route('rooms.create') }}" id="alert" class="btn btn-primary" style="box-shadow: 0 2px 6px #acb5f6;
+                            @if(collect(session('permissions'))->contains('Create room'))
+                              <a href="{{ route('rooms.create') }}" id="alert" class="btn btn-primary" style="box-shadow: 0 2px 6px #acb5f6;
                     background-color: #6777ef;
                     border-color: #6777ef;border-radius:30px">Add New</a>
+@endif
                             </div>
                             <div class="section-header-button col-md-5">
 
@@ -153,9 +155,18 @@
                                     <td>
                                             <div class="d-flex">
                                                 <ul class="list-group list-inline ml-1">
-                                                    <li class="list-group-item border1"><a href="{{ url('rooms/'.$id) }}" class=" d-inline font1 " id="alert1" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-eye"></i></a></li>
+                                                    <li class="list-group-item border1">
+                                                    @if(collect(session('permissions'))->contains('List room'))
+                                                        <a href="{{ url('rooms/'.$id) }}" class=" d-inline font1 " id="alert1" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-eye"></i></a>
+                                                    @endif
+                                                    
+                                                    </li>
                                                    
-                                                    <li class="list-group-item border1"><a href="{{ url('rooms/'.$id.'/edit') }}"  class=" d-inline font1 edit-confirmation" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a></li>
+                                                    <li class="list-group-item border1">
+                                                    @if(collect(session('permissions'))->contains('Update room'))
+                                                        <a href="{{ url('rooms/'.$id.'/edit') }}"  class=" d-inline font1 edit-confirmation" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                                                    @endif
+                                                    </li>
                                            
 
                                                     <li class="list-group-item border1">
@@ -164,9 +175,11 @@
     {{ method_field('DELETE') }}
 
     <div class="form-group">
+    @if(collect(session('permissions'))->contains('Delete room'))
         <a href="javascript:void(0);" data-id="{{$roomss['id']}}" class="_delete_data"  data-toggle="tooltip" data-placement="top" title="Delete" style="background-color:#fff!important;position: relative;top:-1px!important; padding-top:3px!important;padding-bottom:8px!important;">
         <i class="fa fa-trash" style="position: relative;top:-5;color:#01a9ac"></i>
-        </a>                    
+        </a>     
+        @endif               
     </div>
 </form></li>
                                                  

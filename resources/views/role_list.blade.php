@@ -115,9 +115,11 @@ function wordSplit($longString,$length=20){
                                                     <div class="card-header table-card-header">
                                                     <div class="row">
                                                     <div class="section-header-button col-md-4" >
+                                                    @if(collect(session('permissions'))->contains('Create roles'))
                     <a href="{{ route('roles.create')}}" class="btn btn-primary" style="box-shadow: 0 2px 6px #acb5f6;
                     background-color: #6777ef;
                     border-color: #6777ef;border-radius:30px">Add New</a>
+@endif
                 </div>
                 <div class="section-header-button col-md-3" >
                   
@@ -266,12 +268,21 @@ function wordSplit($longString,$length=20){
                                         <td>
             <div class="d-flex">
             <ul class="list-group list-inline ml-1">
-  <li class="list-group-item border1"><a href="{{  url('roles/'.$id) }}"
+  <li class="list-group-item border1">
+      
+  @if(collect(session('permissions'))->contains('List roles'))
+  <a href="{{  url('roles/'.$id) }}"
                         class=" d-inline font1 view-confirmation" data-toggle="tooltip" data-placement="top" title="View"><i
-                            class="fa fa-eye"></i></a></li>
-  <li class="list-group-item border1"><a href="{{ url('roles/'.$id.'/edit') }}"
+                            class="fa fa-eye"></i></a>
+                        @endif
+                        </li>
+  <li class="list-group-item border1">
+  @if(collect(session('permissions'))->contains('Update roles'))    
+  <a href="{{ url('roles/'.$id.'/edit') }}"
                         class=" d-inline font1 edit-confirmation" data-toggle="tooltip" data-placement="top" title="Edit"><i
-                            class="fa fa-edit" ></i></a></li>
+                            class="fa fa-edit" ></i></a>
+                        @endif
+                        </li>
   <!-- <li class="list-group-item border1"> <form
                     action="{{ route('roles.destroy',$id) }}"
                     method="POST">
@@ -290,9 +301,11 @@ function wordSplit($longString,$length=20){
     {{ method_field('DELETE') }}
 
     <div class="form-group">
+    @if(collect(session('permissions'))->contains('Delete roles'))   
         <a href="javascript:void(0);" data-id="{{$role['id']}}" class="_delete_data"  data-toggle="tooltip" data-placement="top" title="Delete" style="background-color:#fff!important;position: relative;top:-1px!important; padding-top:3px!important;padding-bottom:8px!important;">
         <i class="fa fa-trash" style="position: relative;top:-5;color:#01a9ac"></i>
-        </a>                    
+        </a>   
+        @endif                 
     </div>
 </form></li>
                 <!-- <li class="list-group-item border1"><a href="{{  url('roles/'.$id) }}"

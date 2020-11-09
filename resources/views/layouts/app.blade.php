@@ -516,18 +516,22 @@ font-size:13px!important;
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                             
+                            @if(collect(session('permissions'))->contains('List users'))
                                 <a class="dropdown-item {{ (request()->is('user_list')) ? 'active' : '' }}" href="{{ route('user.index') }}">Users</a>
+                               @endif
                                 <div class="dropdown-divider"></div>
+                                @if(collect(session('permissions'))->contains('List roles'))
                                 <a class="dropdown-item {{ (request()->is('role_list')) ? 'active' : '' }}" href="{{ route('role.index') }}">Roles</a>
+                               @endif
                                 <div class="dropdown-divider"></div>
+                                @if(collect(session('permissions'))->contains('List permissions'))
                                 <a class="dropdown-item {{ (request()->is('permission_list')) ? 'active' : '' }}" href="{{ route('permission.index') }}">Permissions</a>
-                            
+                            @endif
                               </div>
                            
                           </li>
 
-                          @if(collect(session('permissions'))->contains('List bookings'))
+                        
 
                           <li class="nav-item  dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -536,17 +540,19 @@ font-size:13px!important;
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                             
+                            @if(collect(session('permissions'))->contains('List property'))
                                 <a class="dropdown-item {{ (request()->is('properties_list')) ? 'active' : '' }}" href="{{ route('properties.index') }}">Property</a>
+                                @endif
                                 <div class="dropdown-divider"></div>
+                                @if(collect(session('permissions'))->contains('List room'))
                                 <a class="dropdown-item {{ (request()->is('rooms_list')) ? 'active' : '' }}" href="{{ route('rooms.index') }}">Room</a>
                                
-                            
+                            @endif
                               </div>
                            
                           </li>
 
-                          @endif
+                       
                     
                           {{-- <li class="nav-item {{ (request()->is('stock_master_list')) ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('stock_master.index') }}">
@@ -571,7 +577,7 @@ font-size:13px!important;
                             
                             </div>
                           </li> --}}
-                          @if(collect(session('permissions'))->contains('List property'))
+                         {{-- @if(collect(session('permissions'))->contains('List property'))
                           <li class="nav-item {{ (request()->is('properties_list')) ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('properties.index') }}">
                               <i class="fa fa-flag">
@@ -580,8 +586,8 @@ font-size:13px!important;
                               Property
                             </a>
                           </li>
-                          @endif
-
+                          @endif--}}
+                          @if(collect(session('permissions'))->contains('List Reviews'))
                           <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="zmdi zmdi-comment-edit" style="font-size:25px!important;"></i><br>
@@ -589,6 +595,7 @@ font-size:13px!important;
                               Reviews
                             </a>
                           </li>
+                          @endif
                           @if(collect(session('permissions'))->contains('List Finance'))
                           <li class="nav-item">
                             <a class="nav-link" href="#">
@@ -613,7 +620,7 @@ font-size:13px!important;
                             </a>
                           </li>
 
-
+                      
                        
                           <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -626,36 +633,47 @@ font-size:13px!important;
                              
                           
                               <div class="dropdown-divider"></div>
+                              @if(collect(session('permissions'))->contains('List config status'))
                               <a class="dropdown-item {{ (request()->is('status_list')) ? 'active' : '' }}" href="{{ route('status.index') }}">Status</a>
+                             @endif
                               <div class="dropdown-divider"></div>
                             
                               <div class="dropdown-divider"></div>
+                              @if(collect(session('permissions'))->contains('List config payment status'))
                               <a class="dropdown-item {{ (request()->is('payment_list')) ? 'active' : '' }}" href="{{ route('payment.index') }}">Payment Status</a>
-
-
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item {{ (request()->is('property_type_list')) ? 'active' : '' }}" href="{{ route('property.index') }}">Property Type</a>
+@endif
 
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item {{ (request()->is('host_type_list')) ? 'active' : '' }}" href="{{ route('host.index') }}">Host Type</a>
-
+                              @if(collect(session('permissions'))->contains('List property type'))
+                              <a class="dropdown-item {{ (request()->is('property_list')) ? 'active' : '' }}" href="{{ route('property.index') }}">Property Type</a>
+@endif
+                              <div class="dropdown-divider"></div>
+                              @if(collect(session('permissions'))->contains('List host type'))
+                              <a class="dropdown-item {{ (request()->is('host_list')) ? 'active' : '' }}" href="{{ route('host.index') }}">Host Type</a>
+@endif
                              
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item {{ (request()->is('config_tax_list')) ? 'active' : '' }}" href="{{ route('tax.index') }}">Tax</a>
-
-
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item {{ (request()->is('config_amenity_list')) ? 'active' : '' }}" href="{{ route('amenity.index') }}">Amenity</a>
+                              @if(collect(session('permissions'))->contains('List tax'))
+                              <a class="dropdown-item {{ (request()->is('tax_list')) ? 'active' : '' }}" href="{{ route('tax.index') }}">Tax</a>
+@endif
 
                               <div class="dropdown-divider"></div>
+                              @if(collect(session('permissions'))->contains('List amenity'))
+                              <a class="dropdown-item {{ (request()->is('amenity_list')) ? 'active' : '' }}" href="{{ route('amenity.index') }}">Amenity</a>
+@endif
+                              <div class="dropdown-divider"></div>
+                              @if(collect(session('permissions'))->contains('List room type'))
                               <a class="dropdown-item {{ (request()->is('booking_room_list')) ? 'active' : '' }}" href="{{ route('roomtype.index') }}">Booking Room</a>
 
-
+@endif
                               <div class="dropdown-divider"></div>
+                              @if(collect(session('permissions'))->contains('List config booking status'))
                               <a class="dropdown-item {{ (request()->is('booking_status_list')) ? 'active' : '' }}" href="{{ route('booksts.index') }}">Booking Status</a>
-
+@endif
                               <div class="dropdown-divider"></div>
+                              @if(collect(session('permissions'))->contains('List config commission'))
                               <a class="dropdown-item {{ (request()->is('commission_list')) ? 'active' : '' }}" href="{{ route('commission.index') }}">Booking Commission</a>
+                            @endif
                               <!-- <div class="dropdown-divider"></div>
                               <a class="dropdown-item {{ (request()->is('settings/create')) ? 'active' : '' }}" href="{{ route('settings.create') }}">Settings</a> -->
                             
@@ -670,9 +688,9 @@ font-size:13px!important;
                               {{  ucfirst(session('username')) }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                             
+                            @if(collect(session('permissions'))->contains('List profile'))
                               <a class="dropdown-item {{ (request()->is('show_profiles')) ? 'active' : '' }}" href="{{ route('profile.index') }}">My Profile</a>
-                           
+                           @endif
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item {{ (request()->is('logout')) ? 'active' : '' }}" href="{{ route('logout') }}">Logout</a>
                             
