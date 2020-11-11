@@ -129,10 +129,9 @@
                             <label class="col-form-label text-md-right ">Status</label>
                             <input type="text"  value="   {{ $proproom['status_desc'] }}" class="form-control" readonly>
                             </div>
-<div class="col-sm-4 ">
-                            <!-- <label class="col-form-label text-md-right ">Property Image</label> -->
+<!-- <div class="col-sm-4 ">
                             <img src="{{ isset($proproom['Assets']['data'][0]['links']['thumb']) ? $proproom['Assets']['data'][0]['links']['thumb'].'?width=200&height=200' : asset('img/no-image.gif')  }}"/>
-                            </div>
+                            </div> -->
                             <div class="col-sm-4 ">
                             <label class="col-form-label text-md-right ">Created At </label>
                             <input type="text"  value="    {{ date("Y-m-d H:i:s",$proproom['created_at']) }}" class="form-control" readonly>
@@ -157,6 +156,35 @@
         </div>
     </div>
 </section>
+
+
+<div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                     
+
+                            <div class="form-group row">
+
+                            <div class="col ">
+                            @foreach($proproom['Assets']['data'] as $propr)
+                            <!-- <label class="col-form-label text-md-right ">Property Image</label> -->
+                            <img src="{{ isset($propr['links']['thumb']) ? $propr['links']['thumb'].'?width=200&height=200' : asset('img/no-image.gif')  }}"/>
+                        @endforeach  
+                                                        </div>
+                                                   
+                                         
+                                                    </div>
+                                                          
+                                            
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
 </div>
 @endsection
