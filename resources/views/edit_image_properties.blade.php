@@ -87,7 +87,7 @@
                                                     
 
                                                     <div class="form-group row">
-                                                        <div class="col-sm-4 offset-1 card">
+                                                        <!-- <div class="col-sm-4 offset-1 card">
                                                             
                                                             <div class="card-header">
                                                                 <h5>Files Already Uploaded</h5>
@@ -172,8 +172,8 @@
 
                                                             </div>
 
-                                                        </div>
-                                                        <div class="col-sm-4 offset-1 card">
+                                                        </div> -->
+                                                        <div class="col-sm-6 offset-2 card">
                                                             
                                                             <div class="card-header">
                                                                 <h5>File Upload</h5>
@@ -245,6 +245,97 @@
         </div>
     </div>
 </section>
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+
+
+                <!-- <label class="col-form-label text-md-right ">Property Image</label> -->
+
+                <div class="card-header" style="text-align: center;">
+                                            <h4 > Files Already Uploaded</h4>
+
+
+                                            @if(session('imagesuccess') !== null)
+                                            <div class='alert alert-green my-auto' style="margin-top:20px!important;">
+                                                {{ session('imagesuccess') }}
+                                            </div>
+                                            @endif
+                                            @if(session('imageerror') !== null)
+
+                                            @foreach(session('imageerror') as $v)
+                                            @foreach($v as $e)
+                                            <div class='alert alert-red my-auto' style="margin-top:20px!important;">
+                                                {{ $e }}
+                                            </div>
+                                            @endforeach
+
+                                            @endforeach
+                                            @endif
+
+
+
+                                        </div>
+
+                <div class="card-block filesuploaded">
+                    @php
+                    $imagedata = $editdata['Assets']['data'];
+                    if(count($imagedata)==0)
+                    {
+                    echo "<h5 class='alert alert-red'>There is no image for this Properties.</h5>";
+
+                    }
+                    else {
+                    # code...
+
+
+                    @endphp <div class="card-block filesuploaded">
+
+
+                        <form id="myForm" action="{{ route('assets.destroy',$image['id']) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <div class="form-group row">
+
+                                @foreach ($imagedata as $image)
+                                <div class="col-md-3 " style="float:right">
+                                    <img src="{{ isset($image['links']) ? $image['links']['full'].'?width=100&height=100' : asset('img/no-image.gif')  }}" /><br><br>
+                                    <button id="formsubmit" type="submit" class=" job-delete d-inline btn btn-red "> <i class="icofont icofont-trash"></i>Delete</button>
+                                </div>
+                                @endforeach
+                                @php
+                                }
+                                @endphp
+                            </div>
+                    </div>
+                    </form>
+
+                </div>
+
+
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
 @endsection
 {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
 
