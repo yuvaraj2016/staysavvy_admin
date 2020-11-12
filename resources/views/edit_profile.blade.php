@@ -83,12 +83,12 @@
                                                   
                                                         <div class="col-sm-4">
                                                         <label class="col-form-label text-md-right ">Profile Name</label>
-                                                        <input type="text" id="name" name="name" value="{{ old('name',$profile[0]['name']) }}" class="form-control" required>
+                                                        <input type="text" id="name" name="name" value="{{ old('name',$profile['name']) }}" class="form-control" required>
                                                         </div>
                                                       
                                                         <div class="col-sm-4">
 <label class="col-form-label text-md-right ">E-mail</label>
-<input type="text" id="email" name="email" value="{{ old('email',$profile[0]['email']) }}" class="form-control" required>
+<input type="text" id="email" name="email" value="{{ old('email',$profile['email']) }}" class="form-control" required>
 </div>
 
 

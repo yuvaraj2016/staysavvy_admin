@@ -26,8 +26,7 @@ class ProfileController extends Controller
         $token = session()->get('token');
         try{
 
-            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/users');
-
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/me');
 
             $response = json_decode($call->getBody()->getContents(), true);
         
@@ -36,13 +35,13 @@ class ProfileController extends Controller
 
 
         }
-        $profiles = $response['data'];
-    // return $profiles;
+        $profile = $response['data'];
+       // return $profile;
         // $pagination = $response['meta']['pagination'];
 
         // $lastpage = $pagination['total_pages'];
 
-          return view('show_profile', compact('profiles'));
+          return view('show_profile', compact('profile'));
     }
 
     /**
@@ -120,7 +119,7 @@ class ProfileController extends Controller
         $token = session()->get('token');
         try{
 
-            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/users/'.$id);
+            $call = Http::withToken($token)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') . '/api/me/'.$id);
 
             $response = json_decode($call->getBody()->getContents(), true);
               return $response;
@@ -150,7 +149,7 @@ class ProfileController extends Controller
     {
         $session = session()->get('token');
 
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') .'/api/users');
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->get(config('global.url') .'/api/me/');
        // return $response;
 
         if($response->ok()){
@@ -191,7 +190,7 @@ class ProfileController extends Controller
     //    return $request->all();
         $session = session()->get('token');
       
-        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->post(config('global.url').'/api/users', 
+        $response = Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->post(config('global.url').'/api/me', 
         [
             "_method"=> 'PUT',
             "name"=>$request->name,
@@ -254,7 +253,7 @@ class ProfileController extends Controller
     {
         $session = session()->get('token');
         // return config('global.url');
-        $response=Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->delete(config('global.url').'api/users/'.$id);
+        $response=Http::withToken($session)->withHeaders(['Accept'=>'application/vnd.api.v1+json','Content-Type'=>'application/json'])->delete(config('global.url').'api/me/'.$id);
        // return $response->status();
         // if($response->serverError()){
         //     $error=[['Server Error'],['Please Delete All Photos to this Album']];

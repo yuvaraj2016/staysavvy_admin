@@ -79,22 +79,24 @@
                                 </thead>
                                 <tbody>
 
+                               
+
 
 
 
 <tr>
 @php
-                                        $id=$profiles[0]['id'];
+                                        $id=$profile['id'];
                                     @endphp
 <td>
-        {{ $profiles[0]['name'] }}
+        {{ $profile['name'] }}
     </td>
 
     </td>
-    <td><span class="text-center justify-content-center" style="padding-top:10px;">{{ $profiles[0]['email'] }}</span>
+    <td><span class="text-center justify-content-center" style="padding-top:10px;">{{ $profile['email'] }}</span>
 
     </td>
-    <td>{{ date("Y-m-d H:i:s",$profiles[0]['created_at']) }}</td>
+    <td>{{ date("Y-m-d H:i:s",$profile['created_at']) }}</td>
     <td>
             <div class="d-flex">
             <ul class="list-group">

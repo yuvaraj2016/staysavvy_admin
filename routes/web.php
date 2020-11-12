@@ -90,9 +90,9 @@ Route::resource('profile', 'ProfileController')->except('index')->middleware('ch
 
 Route::get('show_profile/{page?}','ProfileController@index')->name('profile.index')->middleware('checktoken');
 
-Route::put('update_password', 'ProfileController@updatepassword')->name('update_password')->middleware('checktoken');
+// Route::put('update_password', 'ProfileController@updatepassword')->name('update_password')->middleware('checktoken');
 
-Route::get('change_password','ProfileController@passwordedit')->name('change_password.index')->middleware('checktoken');
+// Route::get('change_password','ProfileController@passwordedit')->name('change_password.index')->middleware('checktoken');
 
 
 Route::resource('users', 'UserController')->except('index')->middleware('checktoken');
@@ -134,6 +134,17 @@ Route::get('commission_list/{page?}','CommissionController@index')->name('commis
 Route::resource('rooms', 'RoomController')->except('index')->middleware('checktoken');
 
 Route::get('rooms_list/{page?}','RoomController@index')->name('rooms.index')->middleware('checktoken');
+
+
+Route::resource('profile', 'ProfileController')->except('index')->middleware('checktoken');
+
+Route::get('show_profile/{page?}','ProfileController@index')->name('profile.index')->middleware('checktoken');
+
+
+
+Route::put('update_password', 'ProfileController@updatepassword')->name('update_password')->middleware('checktoken');
+
+Route::get('change_password','ProfileController@passwordedit')->name('change_password.index')->middleware('checktoken');
 
 
 Route::get('getuser', function () {
