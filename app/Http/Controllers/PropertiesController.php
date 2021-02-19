@@ -253,9 +253,10 @@ class PropertiesController extends Controller
 
         if($response->status()===201){
 
-
+return $response;
             return redirect()->route('properties.create')->with('success','Properties Type Created Successfully!');
         }else{
+            return $response;
 
             $request->flash();
 
